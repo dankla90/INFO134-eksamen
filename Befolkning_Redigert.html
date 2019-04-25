@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<h1>Befolkning</h1>
+	<button onclick="getNames()">getNames</button>
+	<button onclick="getIDs()">getID</button>
+	<button onclick="getInfo()">HentInfo</button><input id="kom_nr">
+	<button onclick="siste_befolknings_tall()">siste_befolknings_tall</button>
+	<button onclick="getBefolkning()">getBefolkning</button>
+	<button onclick="getSysselsatte()">getSysselsatte</button>
+	<button onclick="getUtdannede()">getUtdannede</button>
+
+
+
+
+<div id="info"></div>
+
+<script>
+
+	var datasett;
+
+	/*Konstruktøren virker som grensesnitt mot hvert datasett*/
+	function Folk(url){
+	this.url = url; //url
+	this.getInfo = function(){getInfo()}; 
+	this.getNames = function(){getNames()};
+	this.getIDs = function(){getIDs()};
+	this.load = function() {hentJSON(this.url,lagre_data)};//Sender inn lagre_data(call back) som en funksjon
+	
+	}
+	
+	
+	
+	
+	//Lagrer innhold i objektet datasett.
+	function lagre_data(obj){
+			this.datasett = obj;
+	}		
+
+
+
+	//Funksjonen oppretter et objekt og henter datasettet: Befolkning
+	function getBefolkning(){
+        var befolkning;
+		befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");//datasettet befolkning
+		befolkning.load(); // send request etter datasettet.
+	}	
+		
+	
+	//Funksjonen oppretter et objekt og henter datasettet: Sysselsatte	
+	function getSysselsatte(){
+        var sysselsatte;
+		sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
+		sysselsatte.load(); // send request etter datasettet.
+		
+	}
+	
+	
+		//Funksjonen oppretter et objekt og henter datasettet: Utdanning	
+		function getUtdannede(){
+        var utdannede;
+		utdannede = new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
+		utdannede.load(); // send request etter datasettet.
+		
+	}
+	
+	
+	
+	//Metoden henter alle kommunenavn og kommunenummer.
+	function getIDs(){
+	    
+	    //Oppretter tabell for visning av data 	     
+		var innhold ="<table style=width:100%><tr><td><b>Nummer</b></td><td><b>Kommunenavn</b></td></tr>";
+
+		//Legger elementer i tabell
+		for(var id in datasett.elementer){
+			 innhold += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td><td>"+id+"</td></tr>";
+		} 
+		innhold += "</table>";
+		
+		
+		document.getElementById("info").style.paddingLeft = "12px";
+	    document.getElementById("info").innerHTML = JSON.stringify(innhold);
+	}
+	
+	
+	
+	
+
+
+	//Henter navn på kommuner i datasettet
+	function getNames(){		
+		 //Oppretter tabell for visning av data 	     
+		var names = "<table style=width:100% border=1><tr><td><b>Kommunenavn</b></td></tr>";
+	
+		
+		var i = 0;//tall foran kommunenummer.
+		for(name in datasett.elementer){	
+			i++;		
+			names+="<tr><td>" + i + ". " + name + "</td>";//Legger elementer i tabell
+
+		}
+		names += "</table>";
+		document.getElementById("info").style.paddingLeft = "12px";
+	    document.getElementById("info").innerHTML = JSON.stringify(names);
+	}
+
+
+
+
+
+
+     
+     
+   /**
+    *Funksjonen henter informasjon for angitt kommunenummer.
+    *@param kommune_nr Kommunenummer det skal hentes informasjon om.
+    */
+	function getInfo(kommune_nr){	
+	   
+	 var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet 
+
+		
+		var innhold ="<table style=width:100%><tr><td><b>Nr.</b></td>"+
+						    "<td><b>Kommunenavn</b></td>";
+							
+		
+		//Legger elementer i tabell
+		for(var id in datasett.elementer){
+		
+			let kom_nummer = datasett.elementer[id].kommunenummer;
+			let tall_menn = JSON.stringify(datasett.elementer[id].Menn);
+			let tall_kvinner = JSON.stringify(datasett.elementer[id].Kvinner);
+			let menn = tall_menn.replace(/{\}:/g, "");  //Erstatter strenger med tom streng
+			let kvinner = tall_kvinner.replace(/{\}:/g, "");//Erstatter strenger med tom streng
+
+		//Sammenligner kommune nr og legger elementer i tabell
+		if(kommune_nr == kom_nummer){
+			 innhold += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td><td>"+id+"</td></tr></table>"+
+							 "<p><b>Menn</b></p>"+
+							 "<ul><li>"+menn+"</li><br><br></ul>"+
+							 "<p><b>Kvinner</b></p>"+
+			 				 "<ul><li>"+kvinner+"</li></ul>";
+		}
+		} 
+		//innhold += "</ul>";
+		
+		document.getElementById("info").style.paddingLeft = "12px";
+	    document.getElementById("info").innerHTML = JSON.stringify(innhold);
+}
+
+
+
+
+
+
+
+
+	//Metoden henter verdien for siste 
+	function siste_befolknings_tall(){
+		var tabell_kvinner = [];
+		var tabell_menn = [];
+		var tabell_samlet = [];
+		
+		var innhold = "<br><br><b>Siste befolkningstall</b><br><br><b>Kvinner:</b><br>"+"<ol>";
+		var innhold_menn =  "<b>Siste befolkningstall</b><br><br><b>Menn:</b><br>"+"<ol>";
+		
+		for(var tall in datasett.elementer){
+	//Legger resultatet i en liste med navn til kommunen og antall kvinner.
+	tabell_kvinner.push([tall, datasett.elementer[tall]["Kvinner"][2018]]);
+	tabell_menn.push([tall, datasett.elementer[tall]["Menn"][2018]]);
+	}
+	
+	for(var i=0; i<tabell_kvinner.length; i++){
+			innhold += "<li>" + tabell_kvinner[i] + "</li>";
+
+	}
+	innhold += "</ol>";
+	
+	for(var i=0; i<tabell_menn.length; i++){
+			innhold_menn += "<li>" + tabell_menn[i] + "</li>";
+
+	}
+
+	innhold_menn+="</ol>";		
+	
+	//console.log(tabell_kvinner); 
+	//console.log(tabell_menn);
+		
+		document.getElementById("info").style.paddingLeft = "12px";
+	    document.getElementById("info").innerHTML = innhold + innhold_menn;
+	}
+
+
+	//henter JSON-objekt fra ekstern url og kaller funksjon med dataen som parameter
+function hentJSON(url, callback)
+{
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200)
+		{
+			var innhold = this.responseText;
+			var obj = JSON.parse(innhold);
+//			console.log(obj); //her ser du at du får objektet ut. Neste steg vil være å lagre dette som en egenskap til objektet ditt (befolkning)
+			
+			if(obj)
+			{
+				if( typeof callback === 'function')
+				{
+					callback(obj);
+				}
+			}
+			else
+			{
+				callback(null);
+			}
+		}
+	};
+
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+}
+</script>
+
+</body>
+</html>
