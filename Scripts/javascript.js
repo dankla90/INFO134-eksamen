@@ -15,6 +15,7 @@ function startProgram() {
 
 window.onload = startProgram;
 
+//gitHub test
 
 //testing getting all the JSON documents with the same function at the start
 
