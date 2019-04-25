@@ -38,7 +38,6 @@
 	}		
 
 
-
 	//Funksjonen oppretter et objekt og henter datasettet: Befolkning
 	function getBefolkning(){
         var befolkning;
@@ -208,11 +207,13 @@ function hentJSON(url, callback)
 				if( typeof callback === 'function')
 				{
 					callback(obj);
+					console.log("done");
 				}
 			}
 			else
 			{
 				callback(null);
+				console.log("fail");
 			}
 		}
 	};
