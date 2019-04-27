@@ -1,4 +1,3 @@
-
 //testing getting all the JSON documents with the same function at the start
 
 //creates an array of the identifications for the JSON documents
