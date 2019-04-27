@@ -36,7 +36,7 @@ function lagre_data(data){
     if(data.datasett.opphav == "http://data.ssb.no/api/v0/dataset/85432?lang=no"){
         utdannede = data;
         console.log("works");
-    } else if(data.datasett.elementer == "Overhalla") {
+    } else if(data.datasett.opphav == "http://data.ssb.no/api/v0/dataset/104857?lang=no") {
         befolkning = data;
     } else {
         sysselsatte = data;
@@ -44,8 +44,6 @@ function lagre_data(data){
     console.log("works");
     console.log(utdannede);
 }	
-
-
 
 
 
