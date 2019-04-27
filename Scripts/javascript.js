@@ -1,3 +1,13 @@
+
+
+
+// lager objecter
+var befolkning;
+var sysselsatte;
+var utdannede;
+
+
+
 //testing getting all the JSON documents with the same function at the start
 
 //creates an array of the identifications for the JSON documents
@@ -5,8 +15,14 @@ var indexUrl = ["104857.json", "100145.json", "85432.json"];
     for (var i = 0; i < indexUrl.length; i++) {
 
     var url = "http://wildboy.uib.no/~tpe056/folk/" + indexUrl[i];
+<<<<<<< HEAD
 
         let request = new XMLHttpRequest();
+=======
+      
+        //kjører alle requestene individuelt og ikke sequensially 
+        let request = new XMLHttpRequest(); 
+>>>>>>> 0f10a3b41266b87e46563f19ad936b393f3062ca
         request.onreadystatechange = function() {
             if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 var content = this.responseText;
@@ -18,23 +34,6 @@ var indexUrl = ["104857.json", "100145.json", "85432.json"];
     request.open("GET", url);
     request.send();
 }
-
-
-
-// lager objecter
-var befolkning;
-var sysselsatte;
-var utdannede;
-
-//en test
-function test(){
-    console.log("test begynner")
-    console.log(utdannede);
-    console.log(befolkning);
-    console.log(sysselsatte);
-    console.log("test ferdig")
-};
-setTimeout(test, 2000);
 
 
 //lagrer Parsed JSON data på det tilsvarende objectet
@@ -49,6 +48,7 @@ function lagre_data(data){
     };
     console.log("works");
     console.log(utdannede);
+<<<<<<< HEAD
 }
 
 
@@ -84,3 +84,18 @@ function lagre_data(data){
   	   // document.getElementById("info").innerHTML = names;
  		return names;
  	}
+=======
+}	
+
+
+
+//en test
+function test(){
+    console.log("test begynner")
+    console.log(utdannede);
+    console.log(befolkning);
+    console.log(sysselsatte);
+    console.log("test ferdig")
+};
+setTimeout(test, 2000);
+>>>>>>> 0f10a3b41266b87e46563f19ad936b393f3062ca
