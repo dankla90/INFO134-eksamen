@@ -3,10 +3,10 @@
 //creates an array of the identifications for the JSON documents
 var indexUrl = ["104857.json", "100145.json", "85432.json"];
     for (var i = 0; i < indexUrl.length; i++) {
-     
+
     var url = "http://wildboy.uib.no/~tpe056/folk/" + indexUrl[i];
-      
-        let request = new XMLHttpRequest(); 
+
+        let request = new XMLHttpRequest();
         request.onreadystatechange = function() {
             if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 var content = this.responseText;
@@ -49,4 +49,38 @@ function lagre_data(data){
     };
     console.log("works");
     console.log(utdannede);
-}	
+}
+
+
+
+  //Funksjonen returnerer listen av alle kommunenummerene.
+  function getIDs(){
+
+	    //Oppretter tabell for visning av data
+		var kommune_nummer ="<table><tr><td><b>Kommunenummer</b></td></tr>";
+
+		//Legger elementer i tabell
+		for(var id in datasett.elementer){
+			 kommune_nummer += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td></tr>";
+		}
+		kommune_nummer += "</table>";
+
+	   // document.getElementById("info").innerHTML = kommune_nummer;
+	    return kommune_nummer;
+	}
+
+
+
+
+  //Funksjonen henter navn på kommuner i datasettet
+ 	function getNames(){
+       //Oppretter tabell for visning av data
+ 		var names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
+  		for(name in datasett.elementer){
+ 			names+="<tr><td>" + name + "</td>";//Legger elementer i tabell
+ 		}
+ 		 names += "</table>";
+
+  	   // document.getElementById("info").innerHTML = names;
+ 		return names;
+ 	}
