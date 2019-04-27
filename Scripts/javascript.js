@@ -15,14 +15,10 @@ var indexUrl = ["104857.json", "100145.json", "85432.json"];
     for (var i = 0; i < indexUrl.length; i++) {
 
     var url = "http://wildboy.uib.no/~tpe056/folk/" + indexUrl[i];
-<<<<<<< HEAD
-
         let request = new XMLHttpRequest();
-=======
-      
-        //kjører alle requestene individuelt og ikke sequensially 
-        let request = new XMLHttpRequest(); 
->>>>>>> 0f10a3b41266b87e46563f19ad936b393f3062ca
+
+        //kjører alle requestene individuelt og ikke sequensially
+        let request = new XMLHttpRequest();
         request.onreadystatechange = function() {
             if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 var content = this.responseText;
@@ -48,7 +44,6 @@ function lagre_data(data){
     };
     console.log("works");
     console.log(utdannede);
-<<<<<<< HEAD
 }
 
 
@@ -84,8 +79,7 @@ function lagre_data(data){
   	   // document.getElementById("info").innerHTML = names;
  		return names;
  	}
-=======
-}	
+}
 
 
 
@@ -98,4 +92,3 @@ function test(){
     console.log("test ferdig")
 };
 setTimeout(test, 2000);
->>>>>>> 0f10a3b41266b87e46563f19ad936b393f3062ca
