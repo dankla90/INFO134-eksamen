@@ -98,9 +98,22 @@ function getBefolkning(){
     innhold +=  "<tr><td>"+tabell_samlet+"</td></tr>";//samlet befolkningstall 2018
   }
   innhold += "</table>";
-  	
+
   return innhold;
 }
+
+
+
+	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
+	function getOversikt(){
+
+		var innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
+			innhold+= "<tr><td>"+getIDs() + "</td><td>"+getNames() + "</td><td>"+ getBefolkning()+"</td></tr>"
+
+		    document.getElementById("oversikt").innerHTML = innhold;
+
+            return innhold;
+	}
 
 
 
