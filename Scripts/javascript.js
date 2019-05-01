@@ -15,7 +15,7 @@ var indexUrl = ["104857.json", "100145.json", "85432.json"];
 for (var i = 0; i < indexUrl.length; i++) {
 
   var url = "http://wildboy.uib.no/~tpe056/folk/" + indexUrl[i];
-  let request = new XMLHttpRequest();
+
 
   //kjører alle requestene individuelt og ikke sequensially
   let request = new XMLHttpRequest();
@@ -75,7 +75,7 @@ function getNames(){
   // document.getElementById("oversikt").innerHTML = names;
   return names;
 }
-}
+
 
 
 //Funksjonen returnerer samlet befolkningstall for kvinner og menn
