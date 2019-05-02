@@ -53,8 +53,8 @@ function getIDs(){
 
   //Oppretter tabell for visning av data
   let kommune_nummer ="<table><tr><td><b>Kommunenummer</b></td></tr>";
-  for(var id in datasett.elementer){
-    kommune_nummer += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td></tr>";
+  for(var id in befolkning.elementer){
+    kommune_nummer += "<tr><td>"+befolkning.elementer[id].kommunenummer+"</td></tr>";
   }
     kommune_nummer += "</table>";
   // document.getElementById("oversikt").innerHTML = kommune_nummer;
@@ -68,7 +68,7 @@ function getIDs(){
 function getNames(){
   //Oppretter tabell for visning av data
   let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
-  for(name in datasett.elementer){
+  for(name in befolkning.elementer){
     names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
   }
   names += "</table>";
@@ -87,7 +87,7 @@ function getBefolkning(){
 
 
   let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
-  for(var indeks in datasett.elementer){
+  for(var indeks in befolkning.elementer){
     tabell_menn.push([datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
     tabell_kvinner.push([datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
   }
