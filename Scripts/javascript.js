@@ -8,6 +8,17 @@ var utdannede;
 
 
 
+/*Konstruktøren virker som grensesnitt mot hvert datasett*/
+	function Folk(url){
+		this.url = url;
+		this.getInfo = function(){getInfo()};
+		this.getNames = function(){getNames()};
+		this.getIDs = function(){getIDs()};
+	}
+
+
+
+
 //testing getting all the JSON documents with the same function at the start
 
 //creates an array of the identifications for the JSON documents
@@ -52,9 +63,9 @@ function lagre_data(data){
 function getIDs(){
 
   //Oppretter tabell for visning av data
-  let kommune_nummer ="<table><tr><td><b>Kommunenummer</b></td></tr>";
-  for(var id in befolkning.elementer){
-    kommune_nummer += "<tr><td>"+befolkning.elementer[id].kommunenummer+"</td></tr>";
+  let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
+  for(var id in datasett.elementer){
+    kommune_nummer += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td></tr>";
   }
     kommune_nummer += "</table>";
   // document.getElementById("oversikt").innerHTML = kommune_nummer;
@@ -68,7 +79,7 @@ function getIDs(){
 function getNames(){
   //Oppretter tabell for visning av data
   let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
-  for(name in befolkning.elementer){
+  for(name in datasett.elementer){
     names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
   }
   names += "</table>";
@@ -87,7 +98,7 @@ function getBefolkning(){
 
 
   let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
-  for(var indeks in befolkning.elementer){
+  for(var indeks in datasett.elementer){
     tabell_menn.push([datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
     tabell_kvinner.push([datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
   }
@@ -116,6 +127,10 @@ function getBefolkning(){
 	}
 
 
+  //Funksjonen henter informasjon for angitt kommunenummer.
+  function getInfo(kommune_nr){
+
+  }
 
 //en test
 function test(){
