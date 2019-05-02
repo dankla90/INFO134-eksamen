@@ -52,11 +52,11 @@ function lagre_data(data){
 function getIDs(){
 
   //Oppretter tabell for visning av data
-  var kommune_nummer ="<table><tr><td><b>Kommunenummer</b></td></tr>";
+  let kommune_nummer ="<table><tr><td><b>Kommunenummer</b></td></tr>";
   for(var id in datasett.elementer){
     kommune_nummer += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td></tr>";
   }
-  kommune_nummer += "</table>";
+    kommune_nummer += "</table>";
   // document.getElementById("oversikt").innerHTML = kommune_nummer;
   return kommune_nummer;
 }
@@ -67,7 +67,7 @@ function getIDs(){
 //Funksjonen henter navn på kommuner i datasettet
 function getNames(){
   //Oppretter tabell for visning av data
-  var names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
+  let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
   for(name in datasett.elementer){
     names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
   }
@@ -86,7 +86,7 @@ function getBefolkning(){
   var tabell_menn = [];
 
 
-  var innhold = "<table><b>Befolkning</b>";//tabell for visning av data
+  let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
   for(var indeks in datasett.elementer){
     tabell_menn.push([datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
     tabell_kvinner.push([datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
@@ -107,7 +107,7 @@ function getBefolkning(){
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
 	function getOversikt(){
 
-		var innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
+		let innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
 			innhold+= "<tr><td>"+getIDs() + "</td><td>"+getNames() + "</td><td>"+ getBefolkning()+"</td></tr>"
 
 		    document.getElementById("oversikt").innerHTML = innhold;
