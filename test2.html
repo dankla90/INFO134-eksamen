@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<style> 
+
+ 
+    .show {
+            display: block;
+        }
+
+    .hidden {
+            display: none;
+        }
+
+</style>
+
+<script>
+
+   
+
+
+
+        //Forslag 3
+        window.onload = function() {
+
+        var introDiv = document.getElementById('intro_tab');
+        var overDiv = document.getElementById('over_tab');
+
+        var intro = document.getElementById('intro');
+        var oversikt = document.getElementById('oversikt');
+
+
+        intro.onclick = function () {
+            introDiv.setAttribute('class', 'show');
+            overDiv.setAttribute('class', 'hidden');
+        };
+
+        oversikt.onclick = function () {
+            introDiv.setAttribute('class', 'hidden');
+            overDiv.setAttribute('class', 'show');
+        };
+    }
+
+</script>
+
+<h2>Forslag 3</h2>
+
+<nav>
+    <button id="intro">Introduksjon</button>
+    <button id="oversikt">Oversikt</button>
+</nav>
+
+
+<div id="tab-container">
+    <div class="show" id="intro_tab">Introduksjon</div>
+    <div class="hidden" id="over_tab" >Oversikt</div>
+</div>
+
+
+
+</body>
+</html>
