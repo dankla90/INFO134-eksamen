@@ -127,10 +127,31 @@ function getBefolkning(){
 	}
 
 
-  //Funksjonen henter informasjon for angitt kommunenummer.
+  //Funksjonen henter informasjon for angitte kommunenummer.
   function getInfo(kommune_nr){
 
+    var innhold;
+    var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
+
+
+    for(var indeks in datasett.elementer){
+      let kom_nummer = datasett.elementer[indeks].kommunenummer;
+
+      //Sammenligner kommunenr.
+      if(kommune_nr == kom_nummer){
+
+        //Henter informasjon fra kommune
+        innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.elementer[indeks])+"</td></tr>";	
+      }
+    }
+    //document.getElementById("info").style.paddingLeft = "12px";
+    //document.getElementById("info").innerHTML = innhold;
+
+    console.log(innhold);
+    return innhold;
   }
+
+
 
 //en test
 function test(){
