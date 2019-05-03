@@ -14,6 +14,7 @@ var utdannede;
 		this.getInfo = function(){getInfo()};
 		this.getNames = function(){getNames()};
 		this.getIDs = function(){getIDs()};
+    //this.load = function() {hentJSON(this.url,lagre_data)};
 	}
 
 
@@ -122,8 +123,6 @@ function getBefolkning(){
 			innhold+= "<tr><td>"+getIDs() + "</td><td>"+getNames() + "</td><td>"+ getBefolkning()+"</td></tr>"
 
 		    document.getElementById("oversikt").innerHTML = innhold;
-
-            return innhold;
 	}
 
 
@@ -141,7 +140,7 @@ function getBefolkning(){
       if(kommune_nr == kom_nummer){
 
         //Henter informasjon fra kommune
-        innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.elementer[indeks])+"</td></tr>";	
+        innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.elementer[indeks])+"</td></tr>";
       }
     }
     //document.getElementById("info").style.paddingLeft = "12px";
@@ -194,6 +193,7 @@ function toggleDivs() {
     oversikt.className = "show";
     detaljer.className = "hidden";
     sammenligning.className = "hidden";
+    getOversikt();
   };
 
   detalBtn.onclick = function () {
@@ -210,4 +210,3 @@ function toggleDivs() {
     sammenligning.className = "show";
   };
 }
-
