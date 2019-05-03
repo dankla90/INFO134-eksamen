@@ -13,23 +13,29 @@
   <title>Folk</title>
 </head>
 
-<body>
-  <nav></nav>
+<body onload="toggleDivs()">
+  <!-- Knapper for navigering -->
+  <nav>
+    <button id="intro_btn">Introduksjon</button>
+    <button id="oversikt_btn">Oversikt</button>
+    <button id="detalj_btn">Detaljer</button>
+    <button id="sammenlign_btn">Sammenligning</button>
+  </nav>
   <!--Delt de fire delene inn i individuelle div, med id og klasse-->
   <div id="introduksjon" class="hidden">
-    <P>test</P>
+    <p>introduksjon</p>
   </div>
 
   <div id="oversikt" class="hidden">
-
+    <p>oversikt</p>
   </div>
 
   <div id="detaljer" class="hidden">
-
+    <p>detaljer</p>
   </div>
 
   <div id="sammenligning" class="hidden">
-
+    <p>sammenligning</p>
   </div>
 </body>
 

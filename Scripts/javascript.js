@@ -160,6 +160,54 @@ function test(){
   console.log(befolkning);
   console.log(sysselsatte);
   console.log("test ferdig")
-  document.getElementById("introduksjon").className = "show";
+  //document.getElementById("introduksjon").className = "show";
 };
 setTimeout(test, 2000);
+
+
+
+//Vise og skjule divs
+
+function toggleDivs() {
+//Referanser til knapper
+  let introBtn = document.getElementById('intro_btn');
+  let overBtn = document.getElementById('oversikt_btn');
+  let detalBtn = document.getElementById('detalj_btn');
+  let sammenBtn = document.getElementById('sammenlign_btn');
+
+//Referanser til divs
+  let introduksjon = document.getElementById('introduksjon');
+  let oversikt = document.getElementById('oversikt');
+  let detaljer = document.getElementById('detaljer');
+  let sammenligning = document.getElementById('sammenligning');
+
+
+  introBtn.onclick = function () {
+    introduksjon.className = "show";
+    oversikt.className = "hidden";
+    detaljer.className = "hidden";
+    sammenligning.className = "hidden";
+  };
+
+  overBtn.onclick = function () {
+    introduksjon.className = "hidden";
+    oversikt.className = "show";
+    detaljer.className = "hidden";
+    sammenligning.className = "hidden";
+  };
+
+  detalBtn.onclick = function () {
+    introduksjon.className = "hidden";
+    oversikt.className = "hidden";
+    detaljer.className = "show";
+    sammenligning.className = "hidden";
+  };
+
+  sammenBtn.onclick = function () {
+    introduksjon.className = "hidden";
+    oversikt.className = "hidden";
+    detaljer.className = "hidden";
+    sammenligning.className = "show";
+  };
+}
+
