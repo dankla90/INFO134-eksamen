@@ -160,5 +160,6 @@ function test(){
   console.log(befolkning);
   console.log(sysselsatte);
   console.log("test ferdig")
+  document.getElementById("introduksjon").className = "show";
 };
 setTimeout(test, 2000);
