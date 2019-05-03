@@ -163,10 +163,46 @@ function test(){
 };
 setTimeout(test, 2000);
 
+//Vise og skjule divs
+
+function introfunk() {
+  document.getElementById("introduksjon").className = "show";
+  document.getElementById("oversikt").className = "hidden";
+  document.getElementById("detaljer").className = "hidden";
+  document.getElementById("sammenligning").className = "hidden";
+};
+
+
+function oversiktfunk() {
+  document.getElementById("introduksjon").className = "hidden";
+  document.getElementById("oversikt").className = "show";
+  document.getElementById("detaljer").className = "hidden";
+  document.getElementById("sammenligning").className = "hidden";
+};
+
+ function detaljfunk () {
+  document.getElementById("introduksjon").className = "hidden";
+  document.getElementById("oversikt").className = "hidden";
+  document.getElementById("detaljer").className = "show";
+  document.getElementById("sammenligning").className = "hidden";
+};
+
+  function sammenfunk() {
+    document.getElementById("introduksjon").className = "hidden";
+    document.getElementById("oversikt").className = "hidden";
+    document.getElementById("detaljer").className = "hidden";
+    document.getElementById("sammenligning").className = "show";
+};
+
+
+
+
+
+
 
 
 //Vise og skjule divs
-
+/*
 function toggleDivs() {
 //Referanser til knapper
   let introBtn = document.getElementById('intro_btn');
@@ -210,3 +246,4 @@ function toggleDivs() {
     sammenligning.className = "show";
   };
 }
+*/
