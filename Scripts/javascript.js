@@ -173,6 +173,7 @@ function oversiktfunk() {
   document.getElementById("oversikt").className = "show";
   document.getElementById("detaljer").className = "hidden";
   document.getElementById("sammenligning").className = "hidden";
+	getOversikt();
 };
 
  function detaljfunk () {
