@@ -69,7 +69,6 @@ function getIDs(){
     kommune_nummer += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td></tr>";
   }
     kommune_nummer += "</table>";
-  // document.getElementById("oversikt").innerHTML = kommune_nummer;
   return kommune_nummer;
 }
 
@@ -84,7 +83,6 @@ function getNames(){
     names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
   }
   names += "</table>";
-  // document.getElementById("oversikt").innerHTML = names;
   return names;
 }
 
@@ -143,9 +141,6 @@ function getBefolkning(){
         innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.elementer[indeks])+"</td></tr>";
       }
     }
-    //document.getElementById("info").style.paddingLeft = "12px";
-    //document.getElementById("info").innerHTML = innhold;
-
     console.log(innhold);
     return innhold;
   }
