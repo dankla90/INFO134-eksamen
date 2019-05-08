@@ -1,67 +1,74 @@
 
 
 
-// lager objecter
-var befolkning;
-var sysselsatte;
-var utdannede;
 
+
+function lastNedJsons(){
+	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
+	sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
+	utdannede= new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");
+};
 
 
 /*Konstruktøren virker som grensesnitt mot hvert datasett*/
-function Folk(url){
-	this.url = url;
-	this.getInfo = function(){getInfo()};
-	this.getNames = function(){getNames()};
-	this.getIDs = function(){getIDs()};
-	//this.load = function() {hentJSON(this.url,lagre_data)};
+class Folk {
+	constructor(url) {
+		this.url = url;
+		this.getInfo = function () { getInfo(); };
+		this.getNames = function () { getNames(); };
+		this.getIDs = function () { getIDs(); };
+		this.load = function () { load(url); };
+	}
 }
+
+
+
+
 
 //testing getting all the JSON documents with the same function at the start
 //creates an array of the identifications for the JSON documents
-var indexUrl = ["104857.json", "100145.json", "85432.json"];
-for (var i = 0; i < indexUrl.length; i++) {
-
-	var url = "http://wildboy.uib.no/~tpe056/folk/" + indexUrl[i];
-
-
+function load(url)
+{
 	//kjører alle requestene individuelt og ikke sequensially
 	let request = new XMLHttpRequest();
+	request.open("GET", url);
 	request.onreadystatechange = function() {
 		if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
 			var content = this.responseText;
 			var data = JSON.parse(content);
-			console.log(data);
-			lagre_data(data);
 		}
-	}
-	request.open("GET", url);
+	};
 	request.send();
+	
 }
 
+
+/*
 
 //lagrer Parsed JSON data på det tilsvarende objectet
-function lagre_data(data){
-	if(data.datasett.opphav == "http://data.ssb.no/api/v0/dataset/85432?lang=no"){
-		utdannede = data;
-		console.log("works");
-	} else if(data.datasett.opphav == "http://data.ssb.no/api/v0/dataset/104857?lang=no") {
-		befolkning = data;
-	} else {
-		sysselsatte = data;
+function lagre_data(data, url){
+	this.test = url;
+	if(test == "http://wildboy.uib.no/~tpe056/folk/85432.json"){
+	  utdannede = data;
+	  console.log("utdannede er lagret");
+	} else if(test == "http://wildboy.uib.no/~tpe056/folk/104857.json") {
+	  befolkning = data;
+	  console.log("befolkning er lagret");
+	} else if (test == "http://wildboy.uib.no/~tpe056/folk/100145.json"){
+	  sysselsatte = data;
+	  console.log("sysselsatte er lagret");
 	};
-	console.log("works");
-	console.log(utdannede);
-}
-
+	console.log("lagra data blir kjørt works");
+  }
+*/
 
 
 //Funksjonen returnerer listen av alle kommunenummerene.
 function getIDs(){
 	//Oppretter tabell for visning av data
 	let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
-	for(var id in datasett.elementer){
-		kommune_nummer += "<tr><td>"+datasett.elementer[id].kommunenummer+"</td></tr>";
+	for(var id in this.elementer){
+		kommune_nummer += "<tr><td>"+this.elementer[id].kommunenummer+"</td></tr>";
 	}
 	kommune_nummer += "</table>";
 	return kommune_nummer;
@@ -236,8 +243,9 @@ function test(){
 	console.log(utdannede);
 	console.log(befolkning);
 	console.log(sysselsatte);
+
+
 	console.log("test ferdig")
-	//document.getElementById("introduksjon").className = "show";
 };
 setTimeout(test, 2000);
 
@@ -248,15 +256,16 @@ function introfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
+	lastNedJsons();
 };
-
 
 function oversiktfunk() {
 	document.getElementById("introduksjon").className = "hidden";
 	document.getElementById("oversikt").className = "show";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	getOversikt();
+	getIDs(utdannede);
+	console.log(utdannede.getIDs())
 };
 
 function detaljfunk () {
@@ -271,58 +280,4 @@ function sammenfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
-};
-
-
-
-
-
-
-
-
-//Vise og skjule divs
-/*
-function toggleDivs() {
-//Referanser til knapper
-let introBtn = document.getElementById('intro_btn');
-let overBtn = document.getElementById('oversikt_btn');
-let detalBtn = document.getElementById('detalj_btn');
-let sammenBtn = document.getElementById('sammenlign_btn');
-
-//Referanser til divs
-let introduksjon = document.getElementById('introduksjon');
-let oversikt = document.getElementById('oversikt');
-let detaljer = document.getElementById('detaljer');
-let sammenligning = document.getElementById('sammenligning');
-
-
-introBtn.onclick = function () {
-introduksjon.className = "show";
-oversikt.className = "hidden";
-detaljer.className = "hidden";
-sammenligning.className = "hidden";
-};
-
-overBtn.onclick = function () {
-introduksjon.className = "hidden";
-oversikt.className = "show";
-detaljer.className = "hidden";
-sammenligning.className = "hidden";
-getOversikt();
-};
-
-detalBtn.onclick = function () {
-introduksjon.className = "hidden";
-oversikt.className = "hidden";
-detaljer.className = "show";
-sammenligning.className = "hidden";
-};
-
-sammenBtn.onclick = function () {
-introduksjon.className = "hidden";
-oversikt.className = "hidden";
-detaljer.className = "hidden";
-sammenligning.className = "show";
-};
 }
-*/
