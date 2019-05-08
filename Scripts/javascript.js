@@ -39,7 +39,7 @@ function load(url)
 		}
 	};
 	request.send();
-	
+
 }
 
 //dropper denne pga det kan ikke være sånn vi skal gjøre det
@@ -166,25 +166,72 @@ function sisteSysselsetting(){
 
 
 
+//Funksjonen returnerer befolkningstall for kvinner og menn for 2017 for angitt kommune.
+	function getBefolkningsTall17(kom_nr){
+
+	var kom_nr = document.getElementById("kom_nr").value;
+			let befolkning_kvinner;//Befolkning for 2017
+			let befolkning_menn; // Befolkning for 2017
+			let befolkning_samlet; // samlet befolkning for 2017
+
+			for(let indeks in datasett.elementer){
+				let kommune_nr = datasett.elementer[indeks].kommunenummer;
+					if(kom_nr == kommune_nr){
+					befolkning_menn = datasett.elementer[indeks]["Menn"][2017];
+					befolkning_kvinner = datasett.elementer[indeks]["Kvinner"][2017];
+					befolkning_samlet = befolkning_menn + befolkning_kvinner;
+					}
+			}
+			return [befolkning_menn, befolkning_kvinner, befolkning_samlet];
+	}
+
+
+
 
 //Funksjonen henter tall for høyre utdanning(lang)
 function sisteHoyereUtdanning(){
-
 	var kom_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
 
-	let tall_kvinner;
-	let tall_menn;
-	let samlet_tall;
+				let hentTall2017 = getBefolkningsTall17(kom_nr);//henter tall for 2017
+				let tallMenn = hentTall2017[0]; //befolkning menn 2017
+				let tallKvinner = hentTall2017[1]; // befolkning kvinner 2017
+				let tallSamlet = hentTall2017[2]; //befolkning samlet 2017
 
-	for(var indeks in datasett.elementer){
-		let kommune_nr = datasett.elementer[indeks].kommunenummer;
-		if(kom_nr == kommune_nr){
-			tall_menn = datasett.elementer[indeks]["04a"].Menn[2017];
-			tall_kvinner = datasett.elementer[indeks]["04a"].Kvinner[2017];
-			samlet_tall = tall_menn + tall_kvinner;
-		}
-	}
-	return samlet_tall;
+				let pstKvinner04a;// % kvinner høyre utdanning(lang)
+				let pstMenn04a;   // % menn høyre utdanning(lang)
+				let pstKvinner03a; // % kvinner høyre utdanning(kort)
+				let pstMenn03a; // % menn høyre utdanning(kort)
+
+				let pstKvinnerSamlet; //samlet prosent for kvinner lang+kort
+				let pstMennSamlet; // samlet prosent for menn lang+kort
+
+				let tallKvinnerSamlet;//Antall kvinner med høyre utdanning(kort + lang)
+				let tallMennSamlet; // Antall menn med høyre utdanning(kort + lang)
+
+
+				let pstKvinnerOgMenn;//Samlet prosent for kvinner og menn.
+
+				for(var indeks in datasett.elementer){
+				  pstKvinner04a = datasett.elementer[indeks]["04a"]["Kvinner"][2017];
+				  pstMenn04a = datasett.elementer[indeks]["04a"]["Menn"][2017];
+				  pstKvinner03a =  datasett.elementer[indeks]["03a"]["Kvinner"][2017];
+				  pstMenn03a = datasett.elementer[indeks]["03a"]["Menn"][2017];
+
+				 pstKvinnerSamlet = pstKvinner04a + pstKvinner03a; //Samlet prosent kvinner for høyere utdanning (lang og kort)
+				 pstMennSamlet = pstMenn04a + pstMenn03a; //Samlet prosent menn for høyere utdanning (lang og kort)
+				}
+
+				//Regner ut antall kvinner med høyere utdanning
+				tallKvinnerSamlet = (tallKvinner*pstKvinnerSamlet) / 100;
+
+				//Regner ut antall menn med høyere utdanning
+				tallMennSamlet = (tallMenn*pstMennSamlet) / 100;
+
+				//Regner ut samlet prosent for kvinner og menn
+				pstKvinnerOgMenn = ((tallKvinnerSamlet + tallMennSamlet)/(tallKvinner+tallMenn)) * 100;
+
+				return [pstMennSamlet, tallMennSamlet, pstKvinnerSamlet, tallKvinnerSamlet, pstKvinnerOgMenn, tallSamlet];
+
 }
 
 
