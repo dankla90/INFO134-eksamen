@@ -2,7 +2,7 @@
 
 
 
-
+//denne koden blir kjørt når du trykker på introduksjonsknappen, det er gjort for test årsaker
 function lastNedJsons(){
 	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
 	sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
@@ -10,7 +10,7 @@ function lastNedJsons(){
 };
 
 
-/*Konstruktøren virker som grensesnitt mot hvert datasett*/
+/*Konstruktøren virker som grensesnitt mot hvert datasett*/ //class delen var bare for å teste noe
 class Folk {
 	constructor(url) {
 		this.url = url;
@@ -42,7 +42,7 @@ function load(url)
 	
 }
 
-
+//dropper denne pga det kan ikke være sånn vi skal gjøre det
 /*
 
 //lagrer Parsed JSON data på det tilsvarende objectet
@@ -63,6 +63,7 @@ function lagre_data(data, url){
 */
 
 
+//endret til this for å se om det funket, men må laste ned JSON dokumentene og fylle objectene først
 //Funksjonen returnerer listen av alle kommunenummerene.
 function getIDs(){
 	//Oppretter tabell for visning av data
@@ -250,6 +251,10 @@ function test(){
 setTimeout(test, 2000);
 
 //Vise og skjule divs
+
+
+
+
 
 function introfunk() {
 	document.getElementById("introduksjon").className = "show";
