@@ -1,79 +1,92 @@
 
-
-
-
-//denne koden blir kjørt når du trykker på introduksjonsknappen, det er gjort for test årsaker
-function lastNedJsons(){
+window.onload = function() {
 	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
 	sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
 	utdannede= new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");
+	befolkning.load();
+	sysselsatte.load();
+	utdannede.load();
+
 };
 
 
 /*Konstruktøren virker som grensesnitt mot hvert datasett*/ //class delen var bare for å teste noe
-class Folk {
-	constructor(url) {
-		this.url = url;
-		this.getInfo = function () { getInfo(); };
-		this.getNames = function () { getNames(); };
-		this.getIDs = function () { getIDs(); };
-		this.load = function () { load(url); };
-	}
-}
+function Folk(url) {
+
+	var data = this;
+	var datasett = {};
+	datasett = data;
+
+	this.targetUrl = url;
 
 
-
-
-
-//testing getting all the JSON documents with the same function at the start
-//creates an array of the identifications for the JSON documents
-function load(url)
-{
-	//kjører alle requestene individuelt og ikke sequensially
-	let request = new XMLHttpRequest();
-	request.open("GET", url);
-	request.onreadystatechange = function() {
-		if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-			var content = this.responseText;
-			var data = JSON.parse(content);
+	//Funksjonen henter informasjon for angitte kommunenummer.
+	this.getInfo = function getInfo(kommune_nr){
+	
+		var innhold;
+		var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
+	
+		for(var indeks in datasett.elementer){
+			let kom_nummer = datasett.elementer[indeks].kommunenummer;
+	
+			//Sammenligner kommunenr.
+			if(kommune_nr == kom_nummer){
+				//Henter informasjon fra kommune
+				innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.elementer[indeks])+"</td></tr>";
+			}
 		}
-	};
-	request.send();
+		console.log(innhold);
+		return innhold;
+	}
 
+	this.tester = function test(fuck){
+		console.log(fuck);
+	};
+
+	this.getNames = function getNames(){
+		//Oppretter tabell for visning av data
+		let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
+		for(name in datasett.elementer){
+			names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
+		}
+		names += "</table>";
+		return names;
+	}
+	
+	this.getIDs = function getIDs(){
+		//Oppretter tabell for visning av data
+		let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
+		for(var id in this.elementer){
+			kommune_nummer += "<tr><td>"+this.elementer[id].kommunenummer+"</td></tr>";
+		}
+		kommune_nummer += "</table>";
+		return kommune_nummer;
+	}
+	
+	
+
+	this.load = function() {
+
+		let xhttp = new XMLHttpRequest();
+		xhttp.open('GET', url);
+		xhttp.onreadystatechange = function () {
+
+			if (xhttp.readyState === 4 && xhttp.status === 200) {
+				info = JSON.parse(this.responseText);
+				data.datasett = info;
+			}
+		};
+		xhttp.send();
+	};
 }
 
-//dropper denne pga det kan ikke være sånn vi skal gjøre det
-/*
 
-//lagrer Parsed JSON data på det tilsvarende objectet
-function lagre_data(data, url){
-	this.test = url;
-	if(test == "http://wildboy.uib.no/~tpe056/folk/85432.json"){
-	  utdannede = data;
-	  console.log("utdannede er lagret");
-	} else if(test == "http://wildboy.uib.no/~tpe056/folk/104857.json") {
-	  befolkning = data;
-	  console.log("befolkning er lagret");
-	} else if (test == "http://wildboy.uib.no/~tpe056/folk/100145.json"){
-	  sysselsatte = data;
-	  console.log("sysselsatte er lagret");
-	};
-	console.log("lagra data blir kjørt works");
-  }
-*/
+
 
 
 //endret til this for å se om det funket, men må laste ned JSON dokumentene og fylle objectene først
 //Funksjonen returnerer listen av alle kommunenummerene.
-function getIDs(){
-	//Oppretter tabell for visning av data
-	let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
-	for(var id in this.elementer){
-		kommune_nummer += "<tr><td>"+this.elementer[id].kommunenummer+"</td></tr>";
-	}
-	kommune_nummer += "</table>";
-	return kommune_nummer;
-}
+
 
 
 
@@ -308,7 +321,6 @@ function introfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	lastNedJsons();
 };
 
 function oversiktfunk() {
@@ -316,8 +328,9 @@ function oversiktfunk() {
 	document.getElementById("oversikt").className = "show";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	getIDs(utdannede);
-	console.log(utdannede.getIDs())
+	//console.log(utdannede.getIDs());
+	console.log(befolkning);
+	befolkning.getNames();
 };
 
 function detaljfunk () {
@@ -332,4 +345,5 @@ function sammenfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
+	console.log(befolkning.datasett);
 }
