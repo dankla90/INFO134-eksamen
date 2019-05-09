@@ -22,13 +22,13 @@ function Folk(url) {
 
 	//Funksjonen henter informasjon for angitte kommunenummer.
 	this.getInfo = function getInfo(kommune_nr){
-	
+
 		var innhold;
 		var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
-	
+
 		for(var indeks in datasett.elementer){
 			let kom_nummer = datasett.elementer[indeks].kommunenummer;
-	
+
 			//Sammenligner kommunenr.
 			if(kommune_nr == kom_nummer){
 				//Henter informasjon fra kommune
@@ -46,13 +46,13 @@ function Folk(url) {
 	this.getNames = function getNames(){
 		//Oppretter tabell for visning av data
 		let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
-		for(name in datasett.elementer){
+		for(var name in datasett.elementer){
 			names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
 		}
 		names += "</table>";
 		return names;
 	}
-	
+
 	this.getIDs = function getIDs(){
 		//Oppretter tabell for visning av data
 		let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
@@ -62,8 +62,8 @@ function Folk(url) {
 		kommune_nummer += "</table>";
 		return kommune_nummer;
 	}
-	
-	
+
+
 
 	this.load = function() {
 
@@ -95,7 +95,7 @@ function Folk(url) {
 function getNames(){
 	//Oppretter tabell for visning av data
 	let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
-	for(name in datasett.elementer){
+	for(var name in datasett.elementer){
 		names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
 	}
 	names += "</table>";
@@ -164,17 +164,23 @@ function getInfo(kommune_nr){
 //Funksjonen henter siste tall for sysselsetting for begge kjønn.
 function sisteSysselsetting(){
 
-	let beggeKjonn;
-	var kom_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
+		let pstBeggeKjonn;
+		let tallForBegge;
 
-	for(var indeks in datasett.elementer){
-		let kommune_nr = datasett.elementer[indeks].kommunenummer;
-		if(kom_nr == kommune_nr){
-			beggeKjonn = datasett.elementer[indeks]["Begge kjønn"][2018];
+		var kom_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
+
+		let tallSamlet = oversiktKommune(kom_nr);
+	
+
+		for(var indeks in datasett.elementer){
+		  let kommune_nr = datasett.elementer[indeks].kommunenummer;
+		  if(kom_nr == kommune_nr){
+		      pstBeggeKjonn = datasett.elementer[indeks]["Begge kjønn"][2018];
+		  }
 		}
-	}
-	//document.getElementById("detaljer").innerHTML = beggeKjonn+"%";
-	return beggeKjonn+" %";
+		  tallForBegge = (tallSamlet*pstBeggeKjonn) / 100;
+			//document.getElementById("info").innerHTML = "Tall: "+ tallBeggeKjonn + "Prosent: "+pstBeggeKjonn+" %" + ", Samlet: "+tallSamlet;
+			return [tallForBegge, pstBeggeKjonn];
 }
 
 
