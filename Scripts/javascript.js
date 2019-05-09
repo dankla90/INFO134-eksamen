@@ -306,7 +306,7 @@ function getDetaljer(kom_nr){
 
 	let hentTall = befolkningstall(kom_nr);//hent befolkningstall 2018 for angitt kommune
 	let befolkning_2018 = hentTall[3]; // henter ut tall fra tabell(array)
-
+	let pstKvinnerOgMenn_rounded = (Math.round(pstKvinnerOgMenn * 10) / 10);
 
 	for(var indeks in utdannede.datasett.elementer){
 		let kom_nummer = utdannede.datasett.elementer[indeks].kommunenummer;
@@ -315,7 +315,7 @@ function getDetaljer(kom_nr){
 		if(kom_nr == kom_nummer){
 
 			innhold = "Kommune: "+kom_nummer+ ", "+indeks +" - befolkning: "+befolkning_2018+", sysselsetting antall: "
-			+tallSysselsatte + ", Begge kjønn: "+ pstBeggeKjonn+ "%" +", Prosent begge kjønn: "+pstKvinnerOgMenn + "%" + ", Totalt: " + tallSamlet;
+			+tallSysselsatte + ", Begge kjønn: "+ pstBeggeKjonn+ "%" +", Prosent begge kjønn: "+pstKvinnerOgMenn_rounded + "%" + ", Totalt: " + tallSamlet;
 		}
 	}
 
