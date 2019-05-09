@@ -50,13 +50,13 @@ button:hover {
     height: 100%;
     background-color: #ffffff;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 
 }
 
-
-#oversikt_tabell {
-    border: 1px solid #e1e1e1;
-}
 
 /* CSS for footer */
 footer {
@@ -78,6 +78,11 @@ footer {
 
 
 #oversikt_tabell {
+    border: 1px solid #8a8a8a;
+    width: 100%;
+}
 
+#oversikt_tabell td {
+    border: 1px solid black;
 }
 
