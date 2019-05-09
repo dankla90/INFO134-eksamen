@@ -26,8 +26,8 @@ function Folk(url) {
 		var innhold;
 		var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
 
-		for(var indeks in datasett.elementer){
-			let kom_nummer = datasett.elementer[indeks].kommunenummer;
+		for(var indeks in datasett.datasett.elementer){
+			let kom_nummer = datasett.datasett.elementer[indeks].kommunenummer;
 
 			//Sammenligner kommunenr.
 			if(kommune_nr == kom_nummer){
@@ -43,7 +43,7 @@ function Folk(url) {
 		console.log("getnames kjører");
 	 	//Oppretter tabell for visning av data
 	    let names = "<table><tr><td><b>Navn</b></td></tr>";
-		for(let name in datasett.datasett.elementer){
+		for(let name in this.datasett.elementer){
 		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
 		   console.log("itererergetNames");
 	    }
@@ -63,19 +63,49 @@ function Folk(url) {
 			kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
 		}
 		kommune_nummer += "</table>";
-
-		return kommune_nummer;
+		document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
+//		return kommune_nummer;
 	}
 
 
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
 	this.getOversikt = function getOversikt(){
 
-	let innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
-	innhold+= "<tr><td>"+this.getIDs() + "</td><td>"+this.getNames() + "</td><td>"+ getBefolkning()+"</td></tr>"
+		let innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
+		innhold+= "<tr><td>"+this.getIDs() + "</td><td>"+this.getNames() + "</td><td>"+ this.getBefolkning()+"</td></tr>"
 
-	document.getElementsByClassName("show").innerHTML = innhold;
+		document.getElementsByClassName("show")[0].innerHTML = innhold;
 	}
+
+
+
+
+	//Funksjonen returnerer samlet befolkningstall for kvinner og menn
+	this.getBefolkning = function getBefolkning(){
+
+		var tabell_samlet = [];
+		var tabell_kvinner = [];
+		var tabell_menn = [];
+
+
+		let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
+		for(var indeks in datasett.datasett.elementer){
+			tabell_menn.push([this.datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
+			tabell_kvinner.push([this.datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
+		}
+
+		//Legger summen av antall kvinner og menn i en samlet tabell
+		for(var i=0; i<tabell_kvinner.length; i++){
+			tabell_samlet =  tabell_kvinner[i].shift() + tabell_menn[i].shift();//Summerer første indeks fra hver tabell
+			innhold +=  "<tr><td>"+tabell_samlet+"</td></tr>";//samlet befolkningstall 2018
+		}
+		innhold += "</table>";
+
+		return innhold;
+	}
+
+
+
 
 
 
@@ -101,32 +131,6 @@ function Folk(url) {
 
 //endret til this for å se om det funket, men må laste ned JSON dokumentene og fylle objectene først
 //Funksjonen returnerer listen av alle kommunenummerene.
-
-
-
-//Funksjonen returnerer samlet befolkningstall for kvinner og menn
-function getBefolkning(){
-
-	var tabell_samlet = [];
-	var tabell_kvinner = [];
-	var tabell_menn = [];
-
-
-	let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
-	for(var indeks in datasett.elementer){
-		tabell_menn.push([datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
-		tabell_kvinner.push([datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
-	}
-
-	//Legger summen av antall kvinner og menn i en samlet tabell
-	for(var i=0; i<tabell_kvinner.length; i++){
-		tabell_samlet =  tabell_kvinner[i].shift() + tabell_menn[i].shift();//Summerer første indeks fra hver tabell
-		innhold +=  "<tr><td>"+tabell_samlet+"</td></tr>";//samlet befolkningstall 2018
-	}
-	innhold += "</table>";
-
-	return innhold;
-}
 
 
 
@@ -289,7 +293,7 @@ function getDetaljer(){
 			+ sisteSysselsetting() + ", Høyere utdanning: "+sisteHoyereUtdanning();
 		}
 	}
-	document.getElementById("detaljer").innerHTML = innhold;
+	document.getElementsByClassName('show')[0].innerHTML = innhold;
 }
 
 
@@ -329,10 +333,6 @@ function oversiktfunk() {
 	document.getElementById("sammenligning").className = "hidden";
 	//befolkning.getNames(befolkning);
 	befolkning.getNames();
-	//befolkning.getIDs();	
-	//befolkning.getOversikt();
-	//sysselsatte.getOversikt();
-	//utdannede.getOversikt();
 		
 };
 
@@ -341,7 +341,7 @@ function detaljfunk () {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "show";
 	document.getElementById("sammenligning").className = "hidden";
-	console.log(befolkning);
+	befolkning.getIDs();
 };
 
 function sammenfunk() {
@@ -349,5 +349,5 @@ function sammenfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
-	console.log(befolkning.datasett);
+	befolkning.getOversikt();
 }
