@@ -1,9 +1,9 @@
 
 window.onload = function() {
-	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
+	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");
 	sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
-	utdannede= new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");
-	befolkning.load();
+	utdannede= new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
+	befolkning.load(); 
 	sysselsatte.load();
 	utdannede.load();
 
@@ -39,29 +39,44 @@ function Folk(url) {
 		return innhold;
 	}
 
-	this.tester = function test(fuck){
-		console.log(fuck);
-	};
-
 	this.getNames = function getNames(){
-		//Oppretter tabell for visning av data
-		let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
-		for(var name in datasett.elementer){
-			names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
-		}
+		console.log("getnames kjører");
+	 //Oppretter tabell for visning av data
+	   let names = "<table><tr><td><b>Navn</b></td></tr>";
+		for(name in datasett.datasett.elementer){
+		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
+		   console.log("itererergetNames");
+	   }
 		names += "</table>";
-		return names;
-	}
+
+		document.getElementsByClassName("show").innerHTML = names;
+	  	// return names;
+   }
+
+
 
 	this.getIDs = function getIDs(){
 		//Oppretter tabell for visning av data
 		let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
-		for(var id in this.elementer){
-			kommune_nummer += "<tr><td>"+this.elementer[id].kommunenummer+"</td></tr>";
+		for(var id in datasett.datasett.elementer){
+			console.log("iterererDet ID");
+			kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
 		}
 		kommune_nummer += "</table>";
+
 		return kommune_nummer;
 	}
+
+
+	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
+	this.getOversikt = function getOversikt(){
+
+	let innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
+	innhold+= "<tr><td>"+this.getIDs() + "</td><td>"+this.getNames() + "</td><td>"+ getBefolkning()+"</td></tr>"
+
+	document.getElementsByClassName("show").innerHTML = innhold;
+	}
+
 
 
 
@@ -86,21 +101,6 @@ function Folk(url) {
 
 //endret til this for å se om det funket, men må laste ned JSON dokumentene og fylle objectene først
 //Funksjonen returnerer listen av alle kommunenummerene.
-
-
-
-
-
-//Funksjonen henter navn på kommuner i datasettet
-function getNames(){
-	//Oppretter tabell for visning av data
-	let names = "<table><tr><td><b>Kommunenavn</b></td></tr>";
-	for(var name in datasett.elementer){
-		names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
-	}
-	names += "</table>";
-	return names;
-}
 
 
 
@@ -129,15 +129,6 @@ function getBefolkning(){
 }
 
 
-
-//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
-function getOversikt(){
-
-	let innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
-	innhold+= "<tr><td>"+getIDs() + "</td><td>"+getNames() + "</td><td>"+ getBefolkning()+"</td></tr>"
-
-	document.getElementById("oversikt").innerHTML = innhold;
-}
 
 
 //Funksjonen henter informasjon for angitte kommunenummer.
@@ -322,11 +313,13 @@ setTimeout(test, 2000);
 
 
 
+
 function introfunk() {
 	document.getElementById("introduksjon").className = "show";
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
+	befolkning.getInfo();
 };
 
 function oversiktfunk() {
@@ -334,9 +327,13 @@ function oversiktfunk() {
 	document.getElementById("oversikt").className = "show";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	//console.log(utdannede.getIDs());
-	console.log(befolkning);
+	//befolkning.getNames(befolkning);
 	befolkning.getNames();
+	//befolkning.getIDs();	
+	//befolkning.getOversikt();
+	//sysselsatte.getOversikt();
+	//utdannede.getOversikt();
+		
 };
 
 function detaljfunk () {
@@ -344,6 +341,7 @@ function detaljfunk () {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "show";
 	document.getElementById("sammenligning").className = "hidden";
+	console.log(befolkning);
 };
 
 function sammenfunk() {
