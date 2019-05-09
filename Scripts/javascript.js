@@ -77,11 +77,11 @@ function Folk(url) {
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
 	this.getOversikt = function getOversikt(){
 
-		let innhold = "<table style=width:50%><b>Siste måling av total befolkning - 2018</b><br><br>";
+		let innhold = "<h2>Siste måling av total befolkning - 2018</h2>" + "<table id='oversikt_tabell'>";
 		innhold+= "<tr><td>"+this.getIDs() + "</td><td>"+this.getNames() + "</td><td>"+ this.getBefolkning()+"</td></tr>"
 
 		document.getElementsByClassName("show")[0].innerHTML = innhold;
-	}
+	};
 
 
 	//Funksjonen returnerer samlet befolkningstall for kvinner og menn
