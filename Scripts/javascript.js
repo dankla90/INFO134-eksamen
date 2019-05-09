@@ -50,7 +50,7 @@ function Folk(url) {
 		names += "</table>";
 
 		document.getElementsByClassName('show')[0].innerHTML = names;
-	  	// return names;
+	  	 return names;
    }
 
 
@@ -64,7 +64,7 @@ function Folk(url) {
 		}
 		kommune_nummer += "</table>";
 		document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
-//		return kommune_nummer;
+		return kommune_nummer;
 	}
 
 
