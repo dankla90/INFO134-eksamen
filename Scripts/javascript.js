@@ -75,26 +75,6 @@ function Folk(url) {
 		return kommune_nummer;
 	}
 
-	//Funksjonen henter informasjon for angitte kommunenummer.
-	this.getInfo = function getInfo(kommune_nr){
-
-		var innhold;
-		var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
-
-		for(var indeks in datasett.datasett.elementer){
-			let kom_nummer = datasett.datasett.elementer[indeks].kommunenummer;
-
-			//Sammenligner kommunenr.
-			if(kommune_nr == kom_nummer){
-				//Henter informasjon fra kommune
-				innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.datasett.elementer[indeks])+"</td></tr>";
-			}
-		}
-		console.log(innhold);
-		return innhold;
-	}
-
-
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
 	this.getOversikt = function getOversikt(){
 
@@ -103,8 +83,6 @@ function Folk(url) {
 
 		document.getElementsByClassName("show")[0].innerHTML = innhold;
 	}
-
-
 
 
 	//Funksjonen returnerer samlet befolkningstall for kvinner og menn

@@ -22,7 +22,7 @@
     <button onclick="sammenfunk()" id="sammenlign_btn">Sammenligning</button>
   </nav>
   <!--Delt de fire delene inn i individuelle div, med id og klasse-->
-  <div id="introduksjon" class="hidden">
+  <div id="introduksjon" class="show">
     <p>Dette er en side er du kan se på data om Norges befolkning, Dataen er hentet fra 
       <a href="https://www.ssb.no" target="_blank">Statistisk sentralbyrå</a>, men ikke direkte, 
       obs, dataen kan inneholde feil.
@@ -34,7 +34,7 @@
   </div>
 
   <div id="detaljer" class="hidden">
-    <p>detaljer</p>
+      <button onclick="getInfo()">Tast inn et komunenummer her for å få ut detaljer om den kommunen</button><input id="kom_nr">
   </div>
 
   <div id="sammenligning" class="hidden">
