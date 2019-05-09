@@ -372,6 +372,4 @@ function sammenfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
-	sisteSysselsetting("0101");
-	//sisteHoyereUtdanning("0101");
 }
