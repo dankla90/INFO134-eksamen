@@ -41,15 +41,15 @@ function Folk(url) {
 
 	this.getNames = function getNames(){
 		console.log("getnames kjører");
-	 //Oppretter tabell for visning av data
-	   let names = "<table><tr><td><b>Navn</b></td></tr>";
-		for(name in datasett.datasett.elementer){
+	 	//Oppretter tabell for visning av data
+	    let names = "<table><tr><td><b>Navn</b></td></tr>";
+		for(let name in datasett.datasett.elementer){
 		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
 		   console.log("itererergetNames");
-	   }
+	    }
 		names += "</table>";
 
-		document.getElementsByClassName("show").innerHTML = names;
+		document.getElementsByClassName('show')[0].innerHTML = names;
 	  	// return names;
    }
 
@@ -280,7 +280,7 @@ function getDetaljer(){
 	let innhold;
 
 	var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
-	for(var indeks in datasett.elementer){
+	for(var indeks in datasett.datasett.elementer){
 		let kom_nummer = datasett.elementer[indeks].kommunenummer;
 
 		//Sammenligner kommunenr.
