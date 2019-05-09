@@ -301,9 +301,9 @@ function getDetaljer(){
 //en test
 function test(){
 	console.log("test begynner")
-	console.log(utdannede);
-	console.log(befolkning);
-	console.log(sysselsatte);
+	console.log(utdannede.datasett);
+	console.log(befolkning.datasett);
+	console.log(sysselsatte.datasett);
 
 
 	console.log("test ferdig")
