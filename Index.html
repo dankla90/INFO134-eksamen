@@ -14,15 +14,17 @@
 </head>
 
 <body>
-  <!-- Knapper for navigering -->
+  <!-- Knapper for navigering som skuler de divene som ikke er valgt. -->
   <nav>
     <button onclick="introfunk()" id="intro_btn">Introduksjon</button>
     <button onclick="oversiktfunk()" id="oversikt_btn">Oversikt</button>
     <button onclick="detaljfunk()" id="detalj_btn">Detaljer</button>
     <button onclick="sammenfunk()" id="sammenlign_btn">Sammenligning</button>
   </nav>
+
   <!--Delt de fire delene inn i individuelle div, med id og klasse-->
-  <div id="introduksjon" class="hidden">
+  <div id="introduksjon" class="show">
+    <h1>Hei og velkommen til denne siden!</h1>
     <p>Dette er en side er du kan se på data om Norges befolkning, Dataen er hentet fra 
       <a href="https://www.ssb.no" target="_blank">Statistisk sentralbyrå</a>, men ikke direkte, 
       obs, dataen kan inneholde feil.
@@ -30,17 +32,20 @@
   </div>
 
   <div id="oversikt" class="hidden">
-    <p>oversikt</p>
+    <h1>Her har du en oversikt over alle kommunene!</h1>
   </div>
 
   <div id="detaljer" class="hidden">
-    <p>detaljer</p>
+      <button onclick="getInfo()">Tast inn et komunenummer her for å få ut detaljer om den kommunen</button><input id="kom_nr">
   </div>
 
   <div id="sammenligning" class="hidden">
-    <p>sammenligning</p>
+    <H1>Her kan du sammenligne to kommuner</H1>
+    <p>Det du trenger å gjøre er å taste inn kommunenummerene til de kommunene du ønsker å sammenligne, også trykk sammenlign. </p>
+    <button onclick="sammenlign()">Sammenligning</button><input id="kom_nr1"><input type="kom_nr2">
   </div>
 
+  <!--footer med informajson om oppgaven-->
   <footer>
     <P>
       Dette er en oppgavebesvarelse i INFO134, Denne oppgaven er besvart av 
