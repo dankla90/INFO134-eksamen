@@ -74,6 +74,7 @@ function Folk(url) {
 			return kommune_nummer;
 	}
 
+	//denne må returnere befolkningstall for menn og kvinner sparat!!
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
 	this.getOversikt = function getOversikt(){
 
@@ -83,7 +84,7 @@ function Folk(url) {
 		document.getElementsByClassName("show")[0].innerHTML = innhold;
 	};
 
-
+	
 	//Funksjonen returnerer samlet befolkningstall for kvinner og menn
 	this.getBefolkning = function getBefolkning(){
 
@@ -93,7 +94,7 @@ function Folk(url) {
 
 
 		let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
-		for(var indeks in datasett.datasett.elementer){
+		for(var indeks in this.datasett.elementer){
 			tabell_menn.push([this.datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
 			tabell_kvinner.push([this.datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
 		}
@@ -174,7 +175,7 @@ function sisteSysselsetting(){
 
 
 //Funksjonen henter tall for høyre utdanning(lang)
-function sisteHoyereUtdanning(){
+function sisteHoyereUtdanning(kom_nr){
 
 	let hentTall_17 = befolkningstall(kom_nr);//henter tall for 2017
 				let tallMenn = hentTall_17[0]; //befolkning menn 2017
@@ -242,41 +243,41 @@ function sisteHoyereUtdanning(){
 
 
 
-//Funksjonen er en hjelpe funksjon for sisteHoyereUtdanning og sisteSysselsetting funksjonene
-//Funksjonen returnerer befolkningstall for angitt kommunenummer for 2017.
-function befolkningstall(kom_nr){
+	//Funksjonen er en hjelpe funksjon for sisteHoyereUtdanning og sisteSysselsetting funksjonene
+	//Funksjonen returnerer befolkningstall for angitt kommunenummer for 2017.
+	function befolkningstall(kom_nr){
 
-	let tallMenn18;// Befolkning menn 2018
-let tallKvinner18;//Befolkning kvinner 2018
-let samletTall18;// samlet befolkning for 2018
+		let tallMenn18;// Befolkning menn 2018
+		let tallKvinner18;//Befolkning kvinner 2018
+		let samletTall18;// samlet befolkning for 2018
 
-let tall_menn17; // Befolkning menn 2017
-let tall_kvinner17;//Befolkning kvinner 2017
-let samletTall17; // samlet befolkning for 2017
+		let tall_menn17; // Befolkning menn 2017
+		let tall_kvinner17;//Befolkning kvinner 2017
+		let samletTall17; // samlet befolkning for 2017
 
-for(var indeks in befolkning.datasett.elementer){
-		let kommune_nr = befolkning.datasett.elementer[indeks].kommunenummer;
+	for(var indeks in befolkning.datasett.elementer){
+			let kommune_nr = befolkning.datasett.elementer[indeks].kommunenummer;
 
-		 //Finner riktig kommune og legger til tall
-	if(kom_nr == kommune_nr){
-		tallMenn18 = befolkning.datasett.elementer[indeks]["Menn"][2018];
-		tallKvinner18 = befolkning.datasett.elementer[indeks]["Kvinner"][2018];
+			//Finner riktig kommune og legger til tall
+		if(kom_nr == kommune_nr){
+			tallMenn18 = befolkning.datasett.elementer[indeks]["Menn"][2018];
+			tallKvinner18 = befolkning.datasett.elementer[indeks]["Kvinner"][2018];
 
-		tall_menn17 = befolkning.datasett.elementer[indeks]["Menn"][2017];
-		tall_kvinner17 = befolkning.datasett.elementer[indeks]["Kvinner"][2017];
+			tall_menn17 = befolkning.datasett.elementer[indeks]["Menn"][2017];
+			tall_kvinner17 = befolkning.datasett.elementer[indeks]["Kvinner"][2017];
+		}
 	}
-}
 
-samletTall17 = tall_menn17 + tall_kvinner17;//Kvinner og menn samlet tall 2017
-samletTall18 = tallMenn18 + tallKvinner18;//Kvinner og menn samlet tall 2018
+	samletTall17 = tall_menn17 + tall_kvinner17;//Kvinner og menn samlet tall 2017
+	samletTall18 = tallMenn18 + tallKvinner18;//Kvinner og menn samlet tall 2018
 
-	//	console.log(tall_menn17);
-	//	console.log(tall_kvinner17);
-	//	console.log(samletTall17);
-	//	console.log(samletTall18);
+		//	console.log(tall_menn17);
+		//	console.log(tall_kvinner17);
+		//	console.log(samletTall17);
+		//	console.log(samletTall18);
 
-return [tall_menn17, tall_kvinner17, samletTall17, samletTall18];
-}
+	return [tall_menn17, tall_kvinner17, samletTall17, samletTall18];
+	}
 
 
 
@@ -288,8 +289,9 @@ Funksjonen returnerer kommunens navn, kommunenummer, siste målte befolkning,
 siste målte statistikk for sysselsetting og høyere utdanning (antall og prosent) for angitt kommunenummer.
 Metoden er ikke helt ferdig!.
 */
-function getDetaljer(){
+function getDetaljer(kom_nr){
 
+	var kom_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
 	let innhold;
 	let sysselsetting = sisteSysselsetting(kom_nr);
 	let antallSysselsatte = sysselsetting[0]; //tall for begge kjønn
@@ -298,9 +300,9 @@ function getDetaljer(){
 	let hentTall = befolkningstall(kom_nr);//hent befolkningstall 2018 for angitt kommune
 	let befolkning_2018 = hentTall[3]; // henter ut tall fra tabell(array)
 
-	//var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
-	for(var indeks in datasett.datasett.datasett.elementer){
-		let kom_nummer = datasett.datasett.elementer[indeks].kommunenummer;
+	
+	for(var indeks in utdannede.datasett.elementer){
+		let kom_nummer = utdannede.datasett.elementer[indeks].kommunenummer;
 
 		//Sammenligner kommunenr.
 		if(kom_nr == kom_nummer){
@@ -338,7 +340,6 @@ function introfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	befolkning.getInfo();
 };
 
 function oversiktfunk() {
@@ -346,9 +347,7 @@ function oversiktfunk() {
 	document.getElementById("oversikt").className = "show";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	//befolkning.getNames(befolkning);
-	//befolkning.getNames();
-	sisteSysselsetting("0101");
+    befolkning.getOversikt();
 
 };
 
@@ -357,7 +356,6 @@ function detaljfunk () {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "show";
 	document.getElementById("sammenligning").className = "hidden";
-	befolkningstall("0101");
 };
 
 function sammenfunk() {
