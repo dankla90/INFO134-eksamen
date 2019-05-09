@@ -1,4 +1,7 @@
 
+
+
+// creates new Folk objects and runs the load method of thos objects.
 window.onload = function() {
 	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");
 	sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
@@ -12,18 +15,16 @@ window.onload = function() {
 };
 
 
-/*Konstruktøren virker som grensesnitt mot hvert datasett*/ //class delen var bare for å teste noe
+//Konstruktøren virker som grensesnitt mot hvert datasett
 function Folk(url) {
 
-
+ 	//lager onload men setter den til null slik oppgaven ber om
 	this.onload = null;
 
-
+	//dette er for å lagre den parsede JSON dataen som datasett, og unngå this problematikk.
 	var data = this;
 	var datasett = {};
 	datasett = data;
-
-	this.targetUrl = url;
 
 
 	//Funksjonen henter informasjon for angitte kommunenummer.
@@ -44,7 +45,7 @@ function Folk(url) {
 		console.log(innhold);
 		return innhold;
 	}
-
+	//Henter navn på kommuner i datasettet
 	this.getNames = function getNames(){
 		console.log("getnames kjører");
 	 	//Oppretter tabell for visning av data
@@ -60,10 +61,11 @@ function Folk(url) {
    }
 
 
-
+	//Metoden henter alle kommunenavn og kommunenummer.
 	this.getIDs = function getIDs(){
 		//Oppretter tabell for visning av data
 		let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
+		//Legger elementer i tabell
 		for(var id in datasett.datasett.elementer){
 			console.log("iterererDet ID");
 			kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
@@ -71,6 +73,25 @@ function Folk(url) {
 		kommune_nummer += "</table>";
 		document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
 		return kommune_nummer;
+	}
+
+	//Funksjonen henter informasjon for angitte kommunenummer.
+	this.getInfo = function getInfo(kommune_nr){
+
+		var innhold;
+		var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
+
+		for(var indeks in datasett.datasett.elementer){
+			let kom_nummer = datasett.datasett.elementer[indeks].kommunenummer;
+
+			//Sammenligner kommunenr.
+			if(kommune_nr == kom_nummer){
+				//Henter informasjon fra kommune
+				innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.datasett.elementer[indeks])+"</td></tr>";
+			}
+		}
+		console.log(innhold);
+		return innhold;
 	}
 
 
@@ -144,25 +165,6 @@ function Folk(url) {
 
 
 
-
-//Funksjonen henter informasjon for angitte kommunenummer.
-function getInfo(kommune_nr){
-
-	var innhold;
-	var kommune_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
-
-	for(var indeks in datasett.elementer){
-		let kom_nummer = datasett.elementer[indeks].kommunenummer;
-
-		//Sammenligner kommunenr.
-		if(kommune_nr == kom_nummer){
-			//Henter informasjon fra kommune
-			innhold += indeks+"<tr><td> kommune</td></tr>"+"<tr><td>"+JSON.stringify(datasett.elementer[indeks])+"</td></tr>";
-		}
-	}
-	console.log(innhold);
-	return innhold;
-}
 
 
 
