@@ -49,12 +49,13 @@ function Folk(url) {
 	this.getNames = function getNames(){
 		console.log("getnames kjører");
 	 	//Oppretter tabell for visning av data
-	    let names = "<table><tr><td><b>Navn</b></td></tr>";
+	    //let names = "<table><tr><td><b>Navn</b></td></tr>";
 		for(let name in this.datasett.elementer){
-		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
-		   console.log("itererergetNames");
+		//   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
+				names+=name;
+			 console.log("itererergetNames");
 	    }
-		names += "</table>";
+	//	names += "</table>";
 
 		document.getElementsByClassName('show')[0].innerHTML = names;
 	  	 return names;
@@ -64,13 +65,15 @@ function Folk(url) {
 	//Metoden henter alle kommunenavn og kommunenummer.
 	this.getIDs = function getIDs(){
 		//Oppretter tabell for visning av data
-		let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
+	//	let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
 		//Legger elementer i tabell
 		for(var id in datasett.datasett.elementer){
 			console.log("iterererDet ID");
-			kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
+		//	kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
+			kommune_nummer += datasett.datasett.elementer[id].kommunenummer;
+
 		}
-		kommune_nummer += "</table>";
+	//	kommune_nummer += "</table>";
 		document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
 		return kommune_nummer;
 	}
@@ -149,25 +152,27 @@ function Folk(url) {
 //Funksjonen henter siste tall for sysselsetting for begge kjønn.
 function sisteSysselsetting(){
 
-	let pstBeggeKjonn;// Prosent for begge kjønn
-	let antallSysselsatte;//Antall sysselsatte kvinner og menn
+	 let pstBeggeKjonn;// Prosent for begge kjønn
+		let antallSysselsatte;//Antall sysselsatte kvinner og menn
 
-	//var kom_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
+		let hentSamletTall18 = befolkningstall(kom_nr);//henter tall for angitt kommune
+		let tallSamlet = hentSamletTall18[3]; //Befolkningstall kvinner og menn 2018
 
-	let hentSamletTall18 = befolkningstall(kom_nr);//henter tall for angitt kommune
-	let tallSamlet = hentSamletTall18[3]; //Befolkningstall kvinner og menn 2018
-	//let tallSamlet = 31037;
+		for(var indeks in sysselsatte.datasett.elementer){
+		  let kommune_nr = sysselsatte.datasett.elementer[indeks].kommunenummer;
+		    if(kom_nr == kommune_nr){
+		      pstBeggeKjonn = sysselsatte.datasett.elementer[indeks]["Begge kjønn"][2018];
+		    }
+		}
+		  //Regner ut antall sysselsatte kvinner og menn
+		  antallSysselsatte = (tallSamlet*pstBeggeKjonn) / 100;
 
-	for(var indeks in datasett.datasett.elementer){
-		let kommune_nr = datasett.datasett.elementer[indeks].kommunenummer;
-			if(kom_nr == kommune_nr){
-				pstBeggeKjonn = datasett.datasett.elementer[indeks]["Begge kjønn"][2018];
-			}
-	}
-		//Regner ut antall sysselsatte kvinner og menn
-		antallSysselsatte = (tallSamlet*pstBeggeKjonn) / 100;
+		 // return [antallSysselsatte, pstBeggeKjonn];
+		  console.log("Hei");
+		  		document.getElementsByClassName("show")[0].innerHTML = "halloien";
+		  		console.log(antallSysselsatte);
+					console.log("HALLO");
 
-		return [antallSysselsatte, pstBeggeKjonn];
 }
 
 
@@ -319,9 +324,9 @@ function oversiktfunk() {
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
 	//befolkning.getNames(befolkning);
-	befolkning.getNames();
-	befolkning.onload();
-
+//	befolkning.getNames();
+	//befolkning.onload();
+	sisteSysselsetting("0101");
 };
 
 function detaljfunk () {
