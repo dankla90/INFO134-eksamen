@@ -49,13 +49,12 @@ function Folk(url) {
 	this.getNames = function getNames(){
 		console.log("getnames kjører");
 	 	//Oppretter tabell for visning av data
-	    //let names = "<table><tr><td><b>Navn</b></td></tr>";
+	    let names = "<table><tr><td><b>Navn</b></td></tr>";
 		for(let name in this.datasett.elementer){
-		//   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
-				names+=name;
-			 console.log("itererergetNames");
+		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
+		   console.log("itererergetNames");
 	    }
-	//	names += "</table>";
+		names += "</table>";
 
 		document.getElementsByClassName('show')[0].innerHTML = names;
 	  	 return names;
@@ -65,17 +64,14 @@ function Folk(url) {
 	//Metoden henter alle kommunenavn og kommunenummer.
 	this.getIDs = function getIDs(){
 		//Oppretter tabell for visning av data
-	//	let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
-		//Legger elementer i tabell
-		for(var id in datasett.datasett.elementer){
-			console.log("iterererDet ID");
-		//	kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
-			kommune_nummer += datasett.datasett.elementer[id].kommunenummer;
-
-		}
-	//	kommune_nummer += "</table>";
-		document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
-		return kommune_nummer;
+			let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
+			for(var id in datasett.datasett.elementer){
+				console.log("iterererDet ID");
+				kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
+			}
+			kommune_nummer += "</table>";
+			document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
+			return kommune_nummer;
 	}
 
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
@@ -169,8 +165,9 @@ function sisteSysselsetting(){
 
 		 // return [antallSysselsatte, pstBeggeKjonn];
 		  console.log("Hei");
-		  		document.getElementsByClassName("show")[0].innerHTML = "halloien";
+		  		document.getElementsByClassName("show")[0].innerHTML = antallSysselsatte + pstBeggeKjonn;
 		  		console.log(antallSysselsatte);
+
 					console.log("HALLO");
 
 }
