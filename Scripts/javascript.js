@@ -195,14 +195,14 @@ function sisteHoyereUtdanning(kom_nr){
 
 				let pstKvinnerOgMenn;//Samlet prosent for kvinner og menn.
 
-				for(var indeks in utdannede.datasett.datasett.elementer){
-				let kommune_nr = utdannede.datasett.datasett.elementer[indeks].kommunenummer;
+				for(var indeks in utdannede.datasett.elementer){
+				let kommune_nr = utdannede.datasett.elementer[indeks].kommunenummer;
 
 				 if(kom_nr == kommune_nr){
-				  pstMenn03a = utdannede.datasett.datasett.elementer[indeks]["03a"]["Menn"][2017];
-				  pstKvinner03a =  utdannede.datasett.datasett.elementer[indeks]["03a"]["Kvinner"][2017];
-				  pstMenn04a = utdannede.datasett.datasett.elementer[indeks]["04a"]["Menn"][2017];
-				  pstKvinner04a = utdannede.datasett.datasett.elementer[indeks]["04a"]["Kvinner"][2017];
+				  pstMenn03a = utdannede.datasett.elementer[indeks]["03a"]["Menn"][2017];
+				  pstKvinner03a =  utdannede.datasett.elementer[indeks]["03a"]["Kvinner"][2017];
+				  pstMenn04a = utdannede.datasett.elementer[indeks]["04a"]["Menn"][2017];
+				  pstKvinner04a = utdannede.datasett.elementer[indeks]["04a"]["Kvinner"][2017];
 
 				 pstMennSamlet = pstMenn03a + pstMenn04a; //Samlet prosent menn for høyere utdanning (lang og kort)
 				 pstKvinnerSamlet = pstKvinner03a + pstKvinner04a; //Samlet prosent kvinner for høyere utdanning (lang og kort)
@@ -303,8 +303,6 @@ function getDetaljer(kom_nr){
 	let pstKvinnerOgMenn = hoyereUtdanning[4];
 	let tallSamlet = hoyereUtdanning[5];
 
-	let enDesimal = Math.round(pstKvinnerOgMenn * 10) / 10;
-
 
 	let hentTall = befolkningstall(kom_nr);//hent befolkningstall 2018 for angitt kommune
 	let befolkning_2018 = hentTall[3]; // henter ut tall fra tabell(array)
@@ -317,12 +315,12 @@ function getDetaljer(kom_nr){
 		if(kom_nr == kom_nummer){
 
 			innhold = "Kommune: "+kom_nummer+ ", "+indeks +" - befolkning: "+befolkning_2018+", sysselsetting antall: "
-			+tallSysselsatte + ", Begge kjønn: "+ pstBeggeKjonn+ ", Prosent begge kjønn: "+pstKvinnerOgMenn + ", Totalt: " + tallSamlet;
+			+tallSysselsatte + ", Begge kjønn: "+ pstBeggeKjonn+ "%" +", Prosent begge kjønn: "+pstKvinnerOgMenn + "%" + ", Totalt: " + tallSamlet;
 		}
 	}
 
 	console.log("innhold: " +innhold);
-		//document.getElementsByClassName("show")[0].innerHTML = innhold;
+		document.getElementsByClassName("show")[0].innerHTML = innhold;
 }
 
 
