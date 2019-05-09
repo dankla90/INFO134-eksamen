@@ -3,15 +3,21 @@ window.onload = function() {
 	befolkning = new Folk("http://wildboy.uib.no/%7Etpe056/folk/104857.json");
 	sysselsatte = new Folk("http://wildboy.uib.no/%7Etpe056/folk/100145.json");
 	utdannede= new Folk("http://wildboy.uib.no/%7Etpe056/folk/85432.json");
+	utdannede.load();
 	befolkning.load(); 
 	sysselsatte.load();
-	utdannede.load();
-
+	befolkning.onload = function() {
+		console.log("onload kjører");
+	};
 };
 
 
 /*Konstruktøren virker som grensesnitt mot hvert datasett*/ //class delen var bare for å teste noe
 function Folk(url) {
+
+
+	this.onload = null;
+
 
 	var data = this;
 	var datasett = {};
@@ -110,7 +116,7 @@ function Folk(url) {
 
 
 
-	this.load = function() {
+	this.load = function load() {
 
 		let xhttp = new XMLHttpRequest();
 		xhttp.open('GET', url);
@@ -119,10 +125,14 @@ function Folk(url) {
 			if (xhttp.readyState === 4 && xhttp.status === 200) {
 				info = JSON.parse(this.responseText);
 				data.datasett = info;
+				if (this.onload){
+					this.onload();
+				};
 			}
 		};
 		xhttp.send();
 	};
+
 }
 
 
@@ -323,7 +333,7 @@ function introfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
-	befolkning.getInfo();
+	getBefolkningsTall17("0101");
 };
 
 function oversiktfunk() {
@@ -333,6 +343,7 @@ function oversiktfunk() {
 	document.getElementById("sammenligning").className = "hidden";
 	//befolkning.getNames(befolkning);
 	befolkning.getNames();
+	befolkning.onload();
 		
 };
 
@@ -350,4 +361,5 @@ function sammenfunk() {
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
 	befolkning.getOversikt();
+
 }
