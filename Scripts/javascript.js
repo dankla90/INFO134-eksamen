@@ -160,11 +160,11 @@
 			let innhold = "<table><th>Menn</th>";//tabell for visning av data
 
 			//Regner ut antall sysselsatte kvinner og menn
-			antallSysselsatte = (tallSamlet*pstBeggeKjonn);
+			antallSysselsatte = (tallSamlet*pstBeggeKjonn)/ 100;
 
-		//				document.getElementsByClassName("info")[0].innerHTML = antallSysselsatte+"Prosent: "+pstBeggeKjonn;
+					//document.getElementsByClassName("info")[0].innerHTML = antallSysselsatte+"Prosent: "+pstBeggeKjonn;
 					//console.log(antallSysselsatte);
-						//console.log(pstBeggeKjonn);
+					//console.log(pstBeggeKjonn);
 
 					return [antallSysselsatte, pstBeggeKjonn, tabell_menn, tabell_kvinner];
 
@@ -309,7 +309,7 @@
 
 		let hentTall = befolkningstall(kom_nr);//hent befolkningstall 2018 for angitt kommune
 		let befolkning_2018 = hentTall[3]; // henter ut tall fra tabell(array)
-		let pstKvinnerOgMenn_rounded = (Math.round(pstKvinnerOgMenn * 10) / 10);
+		let pstKvinnerOgMenn_rounded = Math.round(pstKvinnerOgMenn);
 
 		//do some math for å runde av desimaler.
 		tallSysselsatte = Math.round(tallSysselsatte);
@@ -324,7 +324,7 @@
 				//Legger til detaljert data som list items
 				innhold += "<li><h3>Kommune: "+indeks+ ", Nummer: "+kom_nummer + "</h3></li>";
 				innhold += "<li>Befolknings tall 2018: "+befolkning_2018 + "</li>";
-				innhold += "<li>Antall mennesker som er sysselsatt totalet: " +tallSysselsatte + "</li>";
+				innhold += "<li>Antall mennesker som er sysselsatt totaltt: " +tallSysselsatte + "</li>";
 				innhold += "<li>Prosent av begge kjønn som er sysselsatt: "+ pstBeggeKjonn+ "%" + "</li>";
 				innhold += "<li>Prosent begge kjønn som har/tar høyer utdanning: "+pstKvinnerOgMenn_rounded + "%"  + "</li>";
 				innhold += "<li>Det totale anntallet mennekser som tar eller har høyere utdanning: " + tallSamlet + "</li>";
