@@ -350,75 +350,47 @@
 	 */
 	function sammenlign() {
 
-		//Instansierer to sysselsatte variabler basert på value til input-feltene
-	//	var kommune_1 = sysselsatte.getInfo(document.getElementById("kom_nr1").value); //henter info basert på ID til kommunen
-	//	var kommune_2 = sysselsatte.getInfo(document.getElementById("kom_nr2").value);
-
-	    var kommune_nr1 = document.getElementById("kom_nr1").value; //henter ut verdien fra inputfeltet
-	    var kommune_nr2 = document.getElementById("kom_nr2").value; //henter ut verdien fra inputfeltet
+		var kommune_nr1 = document.getElementById("kom_nr1").value; //henter ut verdien fra inputfeltet
+	 var kommune_nr2 = document.getElementById("kom_nr2").value; //henter ut verdien fra inputfeltet
 
 
 
 
-		let mennTabell1 = [];
-		let kvinnerTabell1 = [];
+ let mennTabell1 = [];
+ let kvinnerTabell1 = [];
 
-		let mennTabell2 = [];
-		let kvinnerTabell2 = [];
+ let mennTabell2 = [];
+ let kvinnerTabell2 = [];
 
+ //let innhold_tabell1;
+ //let innhold_tabell2;
 
-		//Henter data for valgt kommune nr.1
-		var hentTabell1 = sisteSysselsetting(kommune_nr1);
-		mennTabell1 = hentTabell1[2];
-		kvinnerTabell1 = hentTabell1[3];
+ //Lager en liste med innhold
+	 let innhold = "<table style=width:100%><th>Sammenligning</th>";	
 
-
-		//Henter data for valgt kommune nr.2
-		var hentTabell2 = sisteSysselsetting(kommune_nr2);
-		mennTabell2 = hentTabell2[2];
-		kvinnerTabell2 = hentTabell2[3];
-
+ //Henter data for valgt kommune nr.1
+ var hentTabell1 = sisteSysselsetting(kommune_nr1);
+ mennTabell1 = hentTabell1[2];
+ kvinnerTabell1 = hentTabell1[3];
 
 
-		console.log("Sammenligning: ---------------------------");
-		console.log("Tabell 1");
-		for(let i =0; i<kvinnerTabell1.length; i++){
-			console.log("Menn tall: ",mennTabell1[i]);
-			console.log("Kvinner tall: ",kvinnerTabell1[i]);
-		}
+ //Henter data for valgt kommune nr.2
+ var hentTabell2 = sisteSysselsetting(kommune_nr2);
+ mennTabell2 = hentTabell2[2];
+ kvinnerTabell2 = hentTabell2[3];
 
-		console.log("Tabell 2");
-		for(let i =0; i<kvinnerTabell2.length; i++){
-			console.log("Menn tall: ",mennTabell2[i]);
-			console.log("Kvinner tall: ",kvinnerTabell2[i]);
-		}
+ for(let i=0; i<kvinnerTabell1.length; i++){
 
-/*
-		//Instansierer to sysselsatte variabler basert på value til input-feltene
-		var kommune_1 = sysselsatte.getInfo(document.getElementById("kom_nr1").value); //henter info basert på ID til kommunen
-		var kommune_2 = sysselsatte.getInfo(document.getElementById("kom_nr2").value);
+	 innhold += "<tr><td>Kommune: "+kommune_nr1+"</td><td>Kommune: "+kommune_nr2+"</td><td>Vekst</td></tr>"
+				 +"<tr><td>Menn</td><td><Kvinner></td><td>Menn</td><td><Kvinner></td><td>prosentpoeng</td></tr>"
+				 +"<tr><td>"+mennTabell1[i]+"</td><td>"+kvinnerTabell1[i]+"</td>"
+				 +"<tr><td>"+mennTabell2[i]+"</td><td>"+kvinnerTabell2[i]+"</td></tr>";
 
+	 }
+	 //Fullfører liste
+ innhold += "</table>";
 
-		//Oppretter tabell
-		let innhold = '<table id="sammenlign_tabell">';
-
-
-		//itererer gjennom sysselsatte
-		for(var indeks in sysselsatte.datasett.elementer){
-
-			let tallMenn1 = kommune_1.datasett.elementer[indeks]["Menn"];
-			let tallKvinner1 = kommune_1.datasett.elementer[indeks]["Kvinner"];
-
-			let tallMenn2 = kommune_2.datasett.elementer[indeks]["Menn"];
-			let tallKvinner2 = kommune_2.datasett.elementer[indeks]["Kvinner"];
-
-			innhold += '<tr><td> + +  </td>'
-		}
-
-		innhold += '<tr></table>';
-
-		document.getElementById("sammenligning").getElementsByClassName("info")[0].innerHTML = innhold;
-*/
+ document.getElementById("sammenligning").getElementsByClassName("info")[0].innerHTML = innhold;
 
 	}
 
