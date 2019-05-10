@@ -351,47 +351,47 @@
 	function sammenlign() {
 
 		var kommune_nr1 = document.getElementById("kom_nr1").value; //henter ut verdien fra inputfeltet
-	 var kommune_nr2 = document.getElementById("kom_nr2").value; //henter ut verdien fra inputfeltet
+		 var kommune_nr2 = document.getElementById("kom_nr2").value; //henter ut verdien fra inputfeltet
+
+	 let mennTabell1 = [];
+	 let kvinnerTabell1 = [];
+
+	 let mennTabell2 = [];
+	 let kvinnerTabell2 = [];
 
 
 
+	  //Lager en liste med innhold
+	  let innhold = "<table style=width:100%><th>Sammenligning</th>";
 
- let mennTabell1 = [];
- let kvinnerTabell1 = [];
-
- let mennTabell2 = [];
- let kvinnerTabell2 = [];
-
- //let innhold_tabell1;
- //let innhold_tabell2;
-
- //Lager en liste med innhold
-	 let innhold = "<table style=width:100%><th>Sammenligning</th>";	
-
- //Henter data for valgt kommune nr.1
- var hentTabell1 = sisteSysselsetting(kommune_nr1);
- mennTabell1 = hentTabell1[2];
- kvinnerTabell1 = hentTabell1[3];
+	 //Henter data for valgt kommune nr.1
+	 var hentTabell1 = sisteSysselsetting(kommune_nr1);
+	 mennTabell1 = hentTabell1[2];
+	 kvinnerTabell1 = hentTabell1[3];
 
 
- //Henter data for valgt kommune nr.2
- var hentTabell2 = sisteSysselsetting(kommune_nr2);
- mennTabell2 = hentTabell2[2];
- kvinnerTabell2 = hentTabell2[3];
+	 //Henter data for valgt kommune nr.2
+	 var hentTabell2 = sisteSysselsetting(kommune_nr2);
+	 mennTabell2 = hentTabell2[2];
+	 kvinnerTabell2 = hentTabell2[3];
 
- for(let i=0; i<kvinnerTabell1.length; i++){
+	 for(let i=0; i<mennTabell1.length; i++){
 
-	 innhold += "<tr><td>Kommune: "+kommune_nr1+"</td><td>Kommune: "+kommune_nr2+"</td><td>Vekst</td></tr>"
-				 +"<tr><td>Menn</td><td><Kvinner></td><td>Menn</td><td><Kvinner></td><td>prosentpoeng</td></tr>"
-				 +"<tr><td>"+mennTabell1[i]+"</td><td>"+kvinnerTabell1[i]+"</td>"
-				 +"<tr><td>"+mennTabell2[i]+"</td><td>"+kvinnerTabell2[i]+"</td></tr>";
+	 	console.log(mennTabell1[i]);
+	 	console.log(kvinnerTabell1[i]);
+	 	console.log(mennTabell2[i]);
+	 	console.log(kvinnerTabell2[i]);
 
-	 }
-	 //Fullfører liste
- innhold += "</table>";
+		 innhold += "<tr><td>Kommune: "+kommune_nr1+"</td><td>Kommune: "+kommune_nr2+"</td></tr>"
+					 +"<tr><td>Menn</td><td>Kvinner</td><td>Menn</td><td>Kvinner</td><td>prosentpoeng</td></tr>"
+					 +"<tr><td>"+mennTabell1[i]+"</td><td>"+kvinnerTabell1[i]+"</td>"
+					 +"<td>"+mennTabell2[i]+"</td><td>"+kvinnerTabell2[i]+"</td></tr>";
 
- document.getElementById("sammenligning").getElementsByClassName("info")[0].innerHTML = innhold;
+		 }
+		 //Fullfører liste
+	 innhold += "</table>";
 
+	 document.getElementById("sammenligning").getElementsByClassName("info")[0].innerHTML = innhold;
 	}
 
 
