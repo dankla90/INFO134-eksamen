@@ -1,5 +1,3 @@
-//Kandidatnr.: 308, 139,253
-
 
 // creates new Folk objects and runs the load method of thos objects.
 window.onload = function() {
@@ -10,7 +8,6 @@ window.onload = function() {
 	befolkning.load();
 	sysselsatte.load();
 	befolkning.onload = function() {
-		console.log("onload kjører");
 	};
 };
 
@@ -53,11 +50,8 @@ function Folk(url) {
 	    let names = "<table><tr><th>Navn</th></tr>";
 		for(let name in this.datasett.elementer){
 		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
-		   console.log("itererergetNames");
 	    }
 		names += "</table>";
-
-
 		document.getElementsByClassName('info')[0].innerHTML = names;
 		return names;
    };
@@ -106,14 +100,12 @@ function Folk(url) {
 			tabell_menn.push([this.datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
 			tabell_kvinner.push([this.datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
 		}
-
 		//Legger summen av antall kvinner og menn i en samlet tabell
 		for(var i=0; i<tabell_kvinner.length; i++){
 			tabell_samlet =  tabell_kvinner[i].shift() + tabell_menn[i].shift();//Summerer første indeks fra hver tabell
 			innhold +=  "<tr><td>"+tabell_samlet+"</td></tr>";//samlet befolkningstall 2018
 		}
 		innhold += "</table>";
-
 		return innhold;
 	};
 
@@ -137,17 +129,6 @@ function Folk(url) {
 	};
 
 }
-
-
-
-
-
-//endret til this for å se om det funket, men må laste ned JSON dokumentene og fylle objectene først
-//Funksjonen returnerer listen av alle kommunenummerene.
-
-
-
-
 
 
 //Funksjonen henter siste tall for sysselsetting for begge kjønn.
@@ -366,13 +347,7 @@ function sammenlign() {
 		let tallMenn2 = kommune_2.datasett.elementer[indeks]["Menn"];
 		let tallKvinner2 = kommune_2.datasett.elementer[indeks]["Kvinner"];
 
-
-
-
-
 		innhold += '<tr><td> + +  </td>'
-
-
 	}
 
 	innhold += '<tr></table>';
@@ -383,23 +358,7 @@ function sammenlign() {
 }
 
 
-
-
-
-
-//en test
-function test(){
-	console.log("test begynner")
-	console.log(utdannede.datasett);
-	console.log(befolkning.datasett);
-	console.log(sysselsatte.datasett);
-
-
-	console.log("test ferdig")
-};
-setTimeout(test, 2000);
-
-//Funksjoner for å vise og skjule divs
+//Funksjoner for å vise og skjule divs og kjøre noen av funksjonene
 function introfunk() {
 	document.getElementById("introduksjon").className = "show";
 	document.getElementById("oversikt").className = "hidden";
@@ -413,7 +372,6 @@ function oversiktfunk() {
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "hidden";
     befolkning.getOversikt();
-
 };
 
 function detaljfunk () {
@@ -429,3 +387,20 @@ function sammenfunk() {
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
 };
+
+
+
+
+
+//en test for testing
+function test(){
+	console.log("test begynner")
+	console.log(utdannede.datasett);
+	console.log(befolkning.datasett);
+	console.log(sysselsatte.datasett);
+
+
+	console.log("test ferdig")
+};
+setTimeout(test, 2000);
+
