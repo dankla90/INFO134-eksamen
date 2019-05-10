@@ -1,4 +1,4 @@
-
+//Kandidatnr.: 308, 139,253
 
 
 // creates new Folk objects and runs the load method of thos objects.
@@ -44,44 +44,52 @@ function Folk(url) {
 		}
 		console.log(innhold);
 		return innhold;
-	}
+	};
+
 	//Henter navn på kommuner i datasettet
 	this.getNames = function getNames(){
 		console.log("getnames kjører");
 	 	//Oppretter tabell for visning av data
-	    let names = "<table><tr><td><b>Navn</b></td></tr>";
+	    let names = "<table><tr><th>Navn</th></tr>";
 		for(let name in this.datasett.elementer){
 		   names+="<tr><td>" + name + "</td></tr>";//Legger elementer i tabell
 		   console.log("itererergetNames");
 	    }
 		names += "</table>";
 
-		document.getElementsByClassName('show')[0].innerHTML = names;
-	  	 return names;
-   }
+
+		document.getElementsByClassName('info')[0].innerHTML = names;
+		return names;
+   };
 
 
 	//Metoden henter alle kommunenavn og kommunenummer.
 	this.getIDs = function getIDs(){
 		//Oppretter tabell for visning av data
-			let kommune_nummer ="<table><tr><td><b>Kommunenr.</b></td></tr>";
+			let kommune_nummer ="<table><tr><th>Kommunenr.</th></tr>";
 			for(var id in datasett.datasett.elementer){
 				console.log("iterererDet ID");
 				kommune_nummer += "<tr><td>"+datasett.datasett.elementer[id].kommunenummer+"</td></tr>";
 			}
 			kommune_nummer += "</table>";
-			document.getElementsByClassName('show')[0].innerHTML = kommune_nummer;
-			return kommune_nummer;
-	}
+
+		document.getElementsByClassName('info')[0].innerHTML = kommune_nummer;
+		return kommune_nummer;
+	};
 
 	//denne må returnere befolkningstall for menn og kvinner sparat!!
 	//Funksjonen returnerer en oversikt over kommunenummer, kommunenavn og siste befolkningstall(2018)
 	this.getOversikt = function getOversikt(){
 
-		let innhold ="<h2>Siste måling av total befolkning - 2018</h2>" + "<table id='oversikt_tabell'>";
-		innhold+= "<tr><td>"+this.getIDs() + "</td><td>"+this.getNames() + "</td><td>"+ this.getBefolkning()+"</td></tr>"
+		let innhold = "<h2>Siste måling av total befolkning (2018)</h2>";
+		innhold += "<table id='oversikt_tabell'>";
+			innhold += "<tr><td>"+this.getIDs() + "</td>";
+			innhold += "<td>"+this.getNames() + "</td>";
+			innhold += "<td>"+ this.getBefolkning()+"</td></tr>";
+		innhold += '</table>';
 
-		document.getElementsByClassName("show")[0].innerHTML = innhold;
+		document.getElementById("oversikt").getElementsByClassName("info")[0].innerHTML = innhold;
+
 	};
 
 
@@ -93,7 +101,7 @@ function Folk(url) {
 		var tabell_menn = [];
 
 
-		let innhold = "<table><b>Befolkning</b>";//tabell for visning av data
+		let innhold = "<table><th>Befolkning</th>";//tabell for visning av data
 		for(var indeks in this.datasett.elementer){
 			tabell_menn.push([this.datasett.elementer[indeks]["Menn"][2018]]);//Legger til tall for menn
 			tabell_kvinner.push([this.datasett.elementer[indeks]["Kvinner"][2018]]);//Legger til tall for kvinner
@@ -107,11 +115,7 @@ function Folk(url) {
 		innhold += "</table>";
 
 		return innhold;
-	}
-
-
-
-
+	};
 
 
 
@@ -164,7 +168,7 @@ function sisteSysselsetting(kom_nr){
 		//Regner ut antall sysselsatte kvinner og menn
 		antallSysselsatte = (tallSamlet*pstBeggeKjonn) / 100;
 
-				document.getElementsByClassName("show")[0].innerHTML = antallSysselsatte+"Prosent: "+pstBeggeKjonn;
+				document.getElementsByClassName("info")[0].innerHTML = antallSysselsatte+"Prosent: "+pstBeggeKjonn;
 				console.log(antallSysselsatte);
 				console.log(pstBeggeKjonn);
 
@@ -195,14 +199,14 @@ function sisteHoyereUtdanning(kom_nr){
 
 				let pstKvinnerOgMenn;//Samlet prosent for kvinner og menn.
 
-				for(var indeks in utdannede.datasett.datasett.elementer){
-				let kommune_nr = utdannede.datasett.datasett.elementer[indeks].kommunenummer;
+				for(var indeks in utdannede.datasett.elementer){
+				let kommune_nr = utdannede.datasett.elementer[indeks].kommunenummer;
 
 				 if(kom_nr == kommune_nr){
-				  pstMenn03a = utdannede.datasett.datasett.elementer[indeks]["03a"]["Menn"][2017];
-				  pstKvinner03a =  utdannede.datasett.datasett.elementer[indeks]["03a"]["Kvinner"][2017];
-				  pstMenn04a = utdannede.datasett.datasett.elementer[indeks]["04a"]["Menn"][2017];
-				  pstKvinner04a = utdannede.datasett.datasett.elementer[indeks]["04a"]["Kvinner"][2017];
+				  pstMenn03a = utdannede.datasett.elementer[indeks]["03a"]["Menn"][2017];
+				  pstKvinner03a =  utdannede.datasett.elementer[indeks]["03a"]["Kvinner"][2017];
+				  pstMenn04a = utdannede.datasett.elementer[indeks]["04a"]["Menn"][2017];
+				  pstKvinner04a = utdannede.datasett.elementer[indeks]["04a"]["Kvinner"][2017];
 
 				 pstMennSamlet = pstMenn03a + pstMenn04a; //Samlet prosent menn for høyere utdanning (lang og kort)
 				 pstKvinnerSamlet = pstKvinner03a + pstKvinner04a; //Samlet prosent kvinner for høyere utdanning (lang og kort)
@@ -291,43 +295,94 @@ Metoden er ikke helt ferdig!.
 */
 function getDetaljer(kom_nr){
 
-
 	var kom_nr = document.getElementById("kom_nr").value; //henter ut verdien fra inputfeltet
 
 
-	let innhold;
+	//Lager en liste med innhold
+	let innhold = '<ul id="kom_detaljer">';
+
 	let sysselsetting = sisteSysselsetting(kom_nr);
 	let tallSysselsatte = sysselsetting[0]; //tall for begge kjønn
 	let pstBeggeKjonn = sysselsetting[1]; //prosent for begge kjønn
-
-	let rounded_tallSysselsatte = Math.round(tallSysselsatte * 10) / 10;
 
 	let hoyereUtdanning = sisteHoyereUtdanning(kom_nr);
 	let pstKvinnerOgMenn = hoyereUtdanning[4];
 	let tallSamlet = hoyereUtdanning[5];
 
-	let pstKvinnerOgMenn_rounded = (Math.round(pstKvinnerOgMenn * 10) / 10);
-
 
 	let hentTall = befolkningstall(kom_nr);//hent befolkningstall 2018 for angitt kommune
 	let befolkning_2018 = hentTall[3]; // henter ut tall fra tabell(array)
-
+	let pstKvinnerOgMenn_rounded = (Math.round(pstKvinnerOgMenn * 10) / 10);
 
 	for(var indeks in utdannede.datasett.elementer){
 		let kom_nummer = utdannede.datasett.elementer[indeks].kommunenummer;
 
 		//Sammenligner kommunenr.
-		if(kom_nr == kom_nummer){
+		if(kom_nr === kom_nummer){
 
-			innhold = "Kommune: "+kom_nummer+ ", "+indeks +" - befolkning: "+befolkning_2018+", sysselsetting antall: "
-			+rounded_tallSysselsatte + ",  Prosent: "+ pstBeggeKjonn + ", Høyere utdannede antall: " +tallSamlet+", Prosent: "+ pstKvinnerOgMenn_rounded;
+			//Legger til detaljert data som list items
+			innhold += "<li><h3>Kommune: "+kom_nummer+ ", "+indeks + "</h3></li>";
+			innhold += "<li>Befolkning: "+befolkning_2018 + "</li>";
+			innhold += "<li>Sysselsetting antall: " +tallSysselsatte + "</li>";
+			innhold += "<li>Begge kjønn: "+ pstBeggeKjonn+ "%" + "</li>";
+			innhold += "<li>Prosent begge kjønn: "+pstKvinnerOgMenn_rounded + "%"  + "</li>";
+			innhold += "<li>Totalt: " + tallSamlet + "</li>";
 		}
+
 	}
 
+	//Fullfører liste
+	innhold += "</ul>";
+
 	console.log("innhold: " +innhold);
-	document.getElementsByClassName("show")[0].innerHTML = innhold;
-	
+	document.getElementById("detaljer").getElementsByClassName("info")[0].innerHTML = innhold;
 }
+
+
+/**
+ * Oppgave 1.1
+ * Som i detaljer skal dere i utgangspunktet ikke vise noen informasjon her, men brukeren skal kunne
+ * skrive inn to gyldige kommunenummer.Når brukeren skriver inn dette, skal dere vise historisk data
+ * for utvikling av sysselsetting for kjønnskategoriene “Menn” og “Kvinner” i begge kommunene.
+ * For hvert år og for hver kjønnskategori, skal dere markere hvilken av kommunene som har høyest vekst i prosentpoeng.
+ */
+function sammenlign() {
+
+	//Instansierer to sysselsatte variabler basert på value til input-feltene
+	var kommune_1 = sysselsatte.getInfo(document.getElementById("kom_nr1").value); //henter info basert på ID til kommunen
+	var kommune_2 = sysselsatte.getInfo(document.getElementById("kom_nr2").value);
+
+
+	//Oppretter tabell
+	let innhold = '<table id="sammenlign_tabell">';
+
+
+	//itererer gjennom sysselsatte
+	for(var indeks in sysselsatte.datasett.elementer){
+
+		let tallMenn1 = kommune_1.datasett.elementer[indeks]["Menn"];
+		let tallKvinner1 = kommune_1.datasett.elementer[indeks]["Kvinner"];
+
+		let tallMenn2 = kommune_2.datasett.elementer[indeks]["Menn"];
+		let tallKvinner2 = kommune_2.datasett.elementer[indeks]["Kvinner"];
+
+
+
+
+
+		innhold += '<tr><td> + +  </td>'
+
+
+	}
+
+	innhold += '<tr></table>';
+
+	document.getElementById("sammenligning").getElementsByClassName("info")[0].innerHTML = innhold;
+
+
+}
+
+
 
 
 
@@ -344,12 +399,7 @@ function test(){
 };
 setTimeout(test, 2000);
 
-//Vise og skjule divs
-
-
-
-
-
+//Funksjoner for å vise og skjule divs
 function introfunk() {
 	document.getElementById("introduksjon").className = "show";
 	document.getElementById("oversikt").className = "hidden";
@@ -378,6 +428,4 @@ function sammenfunk() {
 	document.getElementById("oversikt").className = "hidden";
 	document.getElementById("detaljer").className = "hidden";
 	document.getElementById("sammenligning").className = "show";
-	sisteSysselsetting("0101");
-	//sisteHoyereUtdanning("0101");
-}
+};
