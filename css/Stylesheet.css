@@ -27,7 +27,8 @@ nav {
 
 }
 
-button {
+/* Styling for knapper i navigasjon */
+nav > button {
     width: 100%;
     font-size: 17px;
     border: 1px solid #000000;
@@ -38,8 +39,20 @@ button {
     color: #ffffff;
 }
 
-button:hover {
-    color: yellow;
+nav > button:hover {
+    color: #ffff00;
+}
+
+
+button {
+    background-color: #d4f378;
+    font-size: 15px;
+    border-radius: 7px;
+
+}
+
+input {
+    font-size: 15px;
 }
 
 /* CSS for hovedinnhold */
@@ -68,21 +81,81 @@ footer {
 
 }
 
+/* Viser aktiv div */
 .show {
     display: block;
 }
 
+/* Skjuler inaktive diver */
 .hidden {
     display: none;
 }
 
 
+/* CSS for tabell med oversikt */
 #oversikt_tabell {
     border: 1px solid #8a8a8a;
     width: 100%;
+
+}
+
+#oversikt_tabell tr {
+    height: 40px;
+}
+
+#oversikt_tabell tr:nth-child(even) {
+    background-color: #dae5e9;
+}
+
+
+#oversikt_tabell td {
+    padding-bottom: 8px;
+    vertical-align: middle;
+}
+
+
+/* CSS for div med detaljer om kommune */
+#kom_detaljer {
+    font-size: 16px;
+    list-style: none;
+
+}
+
+
+/* CSS for tabell for sammenligning */
+#sammenlign_tabell {
+    border: 1px solid #3d358a;
+    width: 100%;
+}
+
+#sammenlign_tabell tr {
+    height: 35px;
 }
 
 #oversikt_tabell td {
-    border: 1px solid black;
+    padding: 5px;
+
 }
 
+
+/* Media queries for mobile enheter */
+@media screen and (max-width: 960px) {
+
+
+
+    /* Gjør navigasjonsknappene mer tilgjengelig */
+    nav > button {
+        font-size: 14px;
+    }
+
+    /* Snur tabell vertikalt  */
+    #sammenlign_tabell tr {
+        display: block;
+    }
+
+    #sammenlign_tabell td {
+        display: block;
+    }
+
+
+}

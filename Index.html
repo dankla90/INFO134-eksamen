@@ -29,34 +29,49 @@
     <!--Delt de fire delene inn i individuelle div, med id og klasse-->
     <div id="introduksjon" class="show">
            <h1>Hei og velkommen til denne siden!</h1>
-           <p>Dette er en side er du kan se på data om Norges befolkning, Dataen er hentet fra 
-            <a href="https://www.ssb.no" target="_blank">Statistisk sentralbyrå</a>, men ikke direkte, 
-            obs, dataen kan inneholde feil.
-          </p>
+           <p>Dette er en side er du kan se på data om Norges befolkning. Dataen er hentet fra
+             <a href="https://www.ssb.no">Statistisk sentralbyrå</a>, men ikke direkte.</p>
+
+
+             Vi bruker følgende datasett:
+             <ul>
+             <li><a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning</a></li>
+             <li><a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte</a></li>
+             <li><a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning</a></li>
+            </ul>
+
+      <p>PS. dataen kan inneholde feil.</p>
+
     </div>
 
     <div id="oversikt" class="hidden">
       <h1>Her er en oversikt over alle kommunene</h1>
+      <div class="info"></div>
     </div>
 
     <div id="detaljer" class="hidden">
-        <button onclick="getDetaljer()">Tast inn et komunenummer her for å få ut detaljer om den kommunen</button><input id="kom_nr">
+      <p>Tast inn et komunenummer nedenfor for å få ut detaljer om den kommunen</p>
+      <label for="kom_nr"></label><input id="kom_nr" placeholder="Kommunenummer"><button onclick="getDetaljer()">Hent detaljer</button>
+      <div class="info"></div>
     </div>
 
     <div id="sammenligning" class="hidden">
-        <H1>Her kan du sammenligne to kommuner</H1>
+        <h3>Her kan du sammenligne to kommuner</h3>
         <p>Det du trenger å gjøre er å taste inn kommunenummerene til de kommunene du ønsker å sammenligne, også trykk sammenlign. </p>
-        <button onclick="sammenlign()">Sammenligning</button><input id="kom_nr1"><input type="kom_nr2">
+        <input id="kom_nr1" placeholder="Kommunenr. 1"><input id="kom_nr2" placeholder="Kommunenr. 2"><button onclick="sammenlign()">Sammenligning</button>
+      <div class="info"></div>
+
     </div>
 
   </div>
     <!--footer med informajson om oppgaven-->
   <footer>
-    <P>
+    <p>
       Dette er en oppgavebesvarelse i INFO134, Denne oppgaven er besvart av 
       tre forskjellige personer som alle har jobbet sammen for å lage en god 
-      besvarelse på denne oppgaven.
-    </P>
+      besvarelse på denne oppgaven. Kandidatnr.: 308, 139,253
+
+    </p>
   </footer>
 
 </body>
