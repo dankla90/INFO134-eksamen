@@ -26,51 +26,59 @@
   <!-- Hovedinnhold -->
   <div id="content">
 
-    <!--Delt de fire delene inn i individuelle div, med id og klasse-->
+    <!--Delt de fire delene inn i individuelle div-elementer, med id og klasse-->
+
+    <!--Div-element for introduksjon  -->
     <div id="introduksjon" class="show">
-           <h1>Hei og velkommen til denne siden!</h1>
-           <p>Dette er en side er du kan se på data om Norges befolkning. Dataen er hentet fra
-             <a href="https://www.ssb.no">Statistisk sentralbyrå</a>, men ikke direkte.</p>
+      <h1>Hei og velkommen til denne siden!</h1>
+      <p>Dette er en side er du kan se på data om Norges befolkning. Dataen er hentet fra
+        <a href="https://www.ssb.no">Statistisk sentralbyrå</a>, men ikke direkte.</p>
 
-
-             Vi bruker følgende datasett:
-             <ul>
-             <li><a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning</a></li>
-             <li><a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte</a></li>
-             <li><a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning</a></li>
-            </ul>
+      <p>Vi bruker følgende datasett:</p>
+      <ul>
+        <li><a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning</a></li>
+        <li><a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte</a></li>
+        <li><a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning</a></li>
+      </ul>
 
       <p>PS. dataen kan inneholde feil.</p>
 
     </div>
 
+    <!--Div-element for oversikt  -->
     <div id="oversikt" class="hidden">
       <h1>Her er en oversikt over alle kommunene</h1>
       <div class="info"></div>
     </div>
 
+    <!--Div-element for detaljer  -->
     <div id="detaljer" class="hidden">
       <p>Tast inn et komunenummer nedenfor for å få ut detaljer om den kommunen</p>
       <label for="kom_nr"></label><input id="kom_nr" placeholder="Kommunenummer"><button onclick="getDetaljer()">Hent detaljer</button>
       <div class="info"></div>
     </div>
 
+    <!--Div-element for sammenligning  -->
     <div id="sammenligning" class="hidden">
         <h3>Her kan du sammenligne to kommuner</h3>
         <p>Det du trenger å gjøre er å taste inn kommunenummerene til de kommunene du ønsker å sammenligne, også trykk sammenlign. </p>
-        <input id="kom_nr1" placeholder="Kommunenr. 1"><input id="kom_nr2" placeholder="Kommunenr. 2"><button onclick="sammenlign()">Sammenligning</button>
+      
+      <form>
+        <label for="kom_nr1"></label><input id="kom_nr1" placeholder="Kommunenr. 1">
+        <label for="kom_nr2"></label><input id="kom_nr2" placeholder="Kommunenr. 2">
+        <button onclick="sammenlign()">Sammenligning</button>
       <div class="info"></div>
+      </form>
 
     </div>
 
   </div>
-    <!--footer med informajson om oppgaven-->
+    <!--footer med informasjon om oppgaven-->
   <footer>
     <p>
       Dette er en oppgavebesvarelse i INFO134, Denne oppgaven er besvart av 
       tre forskjellige personer som alle har jobbet sammen for å lage en god 
       besvarelse på denne oppgaven. Kandidatnr.: 308, 139,253
-
     </p>
   </footer>
 

@@ -1,4 +1,4 @@
-
+//Kandidatnr.: 308, 139,253
 
 
 // creates new Folk objects and runs the load method of thos objects.
@@ -44,7 +44,8 @@ function Folk(url) {
 		}
 		console.log(innhold);
 		return innhold;
-	}
+	};
+
 	//Henter navn på kommuner i datasettet
 	this.getNames = function getNames(){
 		console.log("getnames kjører");
@@ -57,9 +58,8 @@ function Folk(url) {
 		names += "</table>";
 
 
-		//document.getElementsByClassName('show')[0].innerHTML = names;
 		document.getElementsByClassName('info')[0].innerHTML = names;
-	  	 return names;
+		return names;
    };
 
 
@@ -73,10 +73,8 @@ function Folk(url) {
 			}
 			kommune_nummer += "</table>";
 
-		//document.getElementsByClassName('show')[0].innerHTML = names;
-
 		document.getElementsByClassName('info')[0].innerHTML = kommune_nummer;
-			return kommune_nummer;
+		return kommune_nummer;
 	};
 
 	//denne må returnere befolkningstall for menn og kvinner sparat!!
@@ -89,8 +87,6 @@ function Folk(url) {
 			innhold += "<td>"+this.getNames() + "</td>";
 			innhold += "<td>"+ this.getBefolkning()+"</td></tr>";
 		innhold += '</table>';
-
-		//document.getElementsByClassName('show')[0].innerHTML = names;
 
 		document.getElementById("oversikt").getElementsByClassName("info")[0].innerHTML = innhold;
 
@@ -322,20 +318,21 @@ function getDetaljer(kom_nr){
 		let kom_nummer = utdannede.datasett.elementer[indeks].kommunenummer;
 
 		//Sammenligner kommunenr.
-		if(kom_nr == kom_nummer){
+		if(kom_nr === kom_nummer){
 
 			//Legger til detaljert data som list items
-			innhold += "<li><h3>Kommune: "+kom_nummer+ ", "+indeks + '</h3></li>';
-			innhold += "<li>Befolkning: "+befolkning_2018 + '</li>';
-			innhold += "<li>Sysselsetting antall: " +tallSysselsatte + '</li>';
-			innhold += "<li>Begge kjønn: "+ pstBeggeKjonn+ "%" + '</li>';
-			innhold += "<li>Prosent begge kjønn: "+pstKvinnerOgMenn_rounded + "%"  + '</li>';
-			innhold += "<li>Totalt: " + tallSamlet + '</li>';
+			innhold += "<li><h3>Kommune: "+kom_nummer+ ", "+indeks + "</h3></li>";
+			innhold += "<li>Befolkning: "+befolkning_2018 + "</li>";
+			innhold += "<li>Sysselsetting antall: " +tallSysselsatte + "</li>";
+			innhold += "<li>Begge kjønn: "+ pstBeggeKjonn+ "%" + "</li>";
+			innhold += "<li>Prosent begge kjønn: "+pstKvinnerOgMenn_rounded + "%"  + "</li>";
+			innhold += "<li>Totalt: " + tallSamlet + "</li>";
 		}
+
 	}
 
 	//Fullfører liste
-	innhold += '</ul>';
+	innhold += "</ul>";
 
 	console.log("innhold: " +innhold);
 	document.getElementById("detaljer").getElementsByClassName("info")[0].innerHTML = innhold;
@@ -350,8 +347,10 @@ function getDetaljer(kom_nr){
  * For hvert år og for hver kjønnskategori, skal dere markere hvilken av kommunene som har høyest vekst i prosentpoeng.
  */
 function sammenlign() {
-	var kommune_1 = document.getElementById("kom_nr1").value; //henter ut verdien fra inputfeltet
-	var kommune_2 = document.getElementById("kom_nr2").value; //henter ut verdien fra det andre inputfeltet
+
+	//Instansierer to sysselsatte variabler basert på value til input-feltene
+	var kommune_1 = sysselsatte.getInfo(document.getElementById("kom_nr1").value); //henter info basert på ID til kommunen
+	var kommune_2 = sysselsatte.getInfo(document.getElementById("kom_nr2").value);
 
 
 	//Oppretter tabell
@@ -361,14 +360,22 @@ function sammenlign() {
 	//itererer gjennom sysselsatte
 	for(var indeks in sysselsatte.datasett.elementer){
 
-		let tallMenn = sysselsatte().datasett.elementer[indeks]["Menn"];
-		let tallKvinner = sysselsatte.datasett.elementer[indeks]["Kvinner"];
+		let tallMenn1 = kommune_1.datasett.elementer[indeks]["Menn"];
+		let tallKvinner1 = kommune_1.datasett.elementer[indeks]["Kvinner"];
 
+		let tallMenn2 = kommune_2.datasett.elementer[indeks]["Menn"];
+		let tallKvinner2 = kommune_2.datasett.elementer[indeks]["Kvinner"];
+
+
+
+
+
+		innhold += '<tr><td> + +  </td>'
 
 
 	}
 
-	innhold += '</table>';
+	innhold += '<tr></table>';
 
 	document.getElementById("sammenligning").getElementsByClassName("info")[0].innerHTML = innhold;
 
@@ -392,12 +399,7 @@ function test(){
 };
 setTimeout(test, 2000);
 
-//Vise og skjule divs
-
-
-
-
-
+//Funksjoner for å vise og skjule divs
 function introfunk() {
 	document.getElementById("introduksjon").className = "show";
 	document.getElementById("oversikt").className = "hidden";
