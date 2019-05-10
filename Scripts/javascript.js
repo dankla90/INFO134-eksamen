@@ -44,7 +44,6 @@
 
 		//Henter navn på kommuner i datasettet
 		this.getNames = function getNames(){
-			console.log("getnames kjører");
 		 	//Oppretter tabell for visning av data
 		    let names = "<table><tr><th>Navn</th></tr>";
 			for(let name in this.datasett.elementer){
@@ -162,10 +161,6 @@
 			//Regner ut antall sysselsatte kvinner og menn
 			antallSysselsatte = (tallSamlet*pstBeggeKjonn)/ 100;
 
-					//document.getElementsByClassName("info")[0].innerHTML = antallSysselsatte+"Prosent: "+pstBeggeKjonn;
-					//console.log(antallSysselsatte);
-					//console.log(pstBeggeKjonn);
-
 					return [antallSysselsatte, pstBeggeKjonn, tabell_menn, tabell_kvinner];
 
 			}
@@ -218,27 +213,6 @@
 					//Regner ut hvor mange som er i høyere utdanning ved å gange befokningnen med et prosent
 					tallSamlet = (befolkningTallSamlet * (pstKvinnerOgMenn/100));
 
-					console.log("Prosent menn: " +pstMennSamlet);
-					console.log("Tall for menn: "+ tallMennSamlet);
-					console.log("Prosent for kvinner: "+pstKvinnerSamlet);
-					console.log("Tall for kvinner : "+tallKvinnerSamlet);
-					console.log("Prosent kvinnerOgMenn: "+pstKvinnerOgMenn);
-					console.log("Samlet tall beggeKjønn: "+tallSamlet);
-
-					console.log("------------------------------");
-					console.log("Tall menn 17: " + tallMenn);
-					console.log("Tall Kvinner 17: " + tallKvinner);
-					console.log("Tall samlet: "+ tallSamlet);
-
-
-					console.log("pstKvinner03a: " + pstKvinner03a);
-					console.log("pstKvinner04a: " + pstKvinner04a);
-					console.log("pstKvinnerSamlet: " + pstKvinnerSamlet);
-
-					console.log("pstMenn03a: " + pstMenn03a);
-					console.log("pstMenn04a: " +pstMenn04a);
-					console.log("pstMennSamlet: "+pstMennSamlet);
-
 		return [pstMennSamlet, tallMennSamlet, pstKvinnerSamlet, tallKvinnerSamlet, pstKvinnerOgMenn, tallSamlet];
 	}
 
@@ -271,11 +245,6 @@
 
 		samletTall17 = tall_menn17 + tall_kvinner17;//Kvinner og menn samlet tall 2017
 		samletTall18 = tallMenn18 + tallKvinner18;//Kvinner og menn samlet tall 2018
-
-			//	console.log(tall_menn17);
-			//	console.log(tall_kvinner17);
-			//	console.log(samletTall17);
-			//	console.log(samletTall18);
 
 		return [tall_menn17, tall_kvinner17, samletTall17, samletTall18];
 		}
@@ -335,8 +304,6 @@
 
 		//Fullfører liste
 		innhold += "</ul>";
-
-		console.log("innhold: " +innhold);
 		document.getElementById("detaljer").getElementsByClassName("info")[0].innerHTML = innhold;
 	}
 
@@ -376,11 +343,6 @@
 	 kvinnerTabell2 = hentTabell2[3];
 
 	 for(let i=0; i<mennTabell1.length; i++){
-
-	 	console.log(mennTabell1[i]);
-	 	console.log(kvinnerTabell1[i]);
-	 	console.log(mennTabell2[i]);
-	 	console.log(kvinnerTabell2[i]);
 
 		 innhold += "<tr><td>Kommune: "+kommune_nr1+"</td><td>Kommune: "+kommune_nr2+"</td></tr>"
 					 +"<tr><td>Menn</td><td>Kvinner</td><td>Menn</td><td>Kvinner</td><td>prosentpoeng</td></tr>"
